@@ -1,0 +1,17 @@
+zoom / OpenJDK11, oracle jdk21, 환경변수설정 p34~38 / 이클립스 설치
+
+github / git / 사용자 자격 증명
+C -> _dev -> .gitignore 생성 -> jdk*, .metadata
+
+git init
+git add .
+git commit -m "first commit"
+git remote add origin https://github.com/Kimcy0920/202407JAVA.git
+git push -u origin master
+
+---------------------------------------------------------------------
+
+git add .
+git commit -m "Scanner example"
+git push -u origin master
+
