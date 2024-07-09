@@ -37,3 +37,5 @@ public class Swap {
 //		System.out.printf("x = %d, y = %d\n", x, y);
 	}
 }
+
+// 1. x = 10, y = 20일 때 두 변수의 값을 바꿔보세요. (swap)
