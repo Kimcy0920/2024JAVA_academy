@@ -22,6 +22,7 @@ public class ScannerEx02 {
 		} else {
 			System.out.println("같은 숫자입니다.");
 		}
+		// 직접 한 거
 	}
 
 }

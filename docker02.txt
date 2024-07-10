@@ -1,0 +1,39 @@
+p102~p110//
+
+도커 데스크탑 Files -> /usr/local/apache2/htdocs/index.html
+
+[도커 명령어]
+docker run --name 이름 -d httpd
+docker run --name apa000ex2 -d -p 8880:80 httpd
+docker ps -a: 컨테이너 목록
+docker ps -qa: 컨테이너 목록(ID)
+docker start 컨테이너ID: 시작
+docker stop 컨테이너ID: 멈춤
+docker rm 컨테이너ID: 제거
+docker image ls : 이미지 목록
+docker image rm 이미지ID: 이미지 제거
+
+복사 명령어
+docker cp 컨테이너이름:/usr/local/apache2/htdocs/index.html
+docker cp index.html 컨테이너이름:/usr/local/apache2/htdocs
+
+p122
+docker run --name nginx000ex6 -d -p 8884:80 nginx
+
+p124
+docker run --name mysql000ex7 -dit -e MYSQL_ROOT_PASSWORD=1234 mysql
+
+docker exec -it mysql000ex7 mysql -u root -p
+------------------------------------------------------
+show databases;
+create database TEST;
+use TEST;
+create table dept (
+    -> deptno int(11),
+    -> dname varchar(14),
+    -> loc varchar(13));
+show tables;
+desc dept;
+insert into dept (deptno, dname, loc) values (
+    -> 10, 'Account', 'Seoul');
+select * from dept;
