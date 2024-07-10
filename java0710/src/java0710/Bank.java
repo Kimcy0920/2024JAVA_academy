@@ -14,27 +14,28 @@ public class Bank {
 			System.out.println("1.예금 | 2.출금 | 3.잔고 | 4.종료");
 			System.out.println("----------------------------");
 			System.out.print("선택> ");
+			
 			String input = scan.nextLine();
 			int num = Integer.parseInt(input);
 			
 			if (num == 1) {
 				System.out.print("예금액> ");
 				input = scan.nextLine();
-				balance = Integer.parseInt(input);
-				System.out.println("예금액>" + balance);
-				
-				if (num == 2) {
-					System.out.print("출금액> ");
-					input = scan.nextLine();
-					int m = Integer.parseInt(input);
-					balance -= m;
-					System.out.println(m);
+				balance += Integer.parseInt(input);
+			}	
+			if (num == 2) {
+				System.out.print("출금액> ");
+				input = scan.nextLine();
+				balance -= Integer.parseInt(input);
 				}
+			if (num == 3) {
+				System.out.print("잔고> ");
+				input = scan.nextLine();
+				System.out.println(balance);
 			}
 			if(num == 4) {
 				break;
 			}
-			
 		}
 		System.out.println("종료");
 	}
