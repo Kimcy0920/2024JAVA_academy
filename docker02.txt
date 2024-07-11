@@ -1,5 +1,9 @@
 p102~p110//
 
+
+docker rm $(docker ps -qa):
+docker rmi $(docker images-q): 이미지 한번에 삭제
+
 도커 데스크탑 Files -> /usr/local/apache2/htdocs/index.html
 
 [도커 명령어]
