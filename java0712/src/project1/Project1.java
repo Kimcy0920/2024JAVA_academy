@@ -1,4 +1,4 @@
-package project01;
+package project1;
 
 import java.util.Scanner;
 
@@ -8,9 +8,6 @@ public class Project1 {
 		Member member = null;
 		Scanner scanner = new Scanner(System.in);
 		boolean run = true;
-		String name2 = "";
-		String tel = "";
-		String ssn = "";
 		while (run) {
 			System.out.println("-------------------------------------");
 			System.out.println("1.로그인 | 2.회원가입 | 3.예금/출금 | 4.종료");
@@ -26,7 +23,7 @@ public class Project1 {
 				String name = scanner.nextLine(); // name 변수의 값 입력
 				System.out.print("패스워드:");
 				String strPassword = scanner.nextLine();//패스워드입력
-				if (name.equals(member.name2)) {
+				if (name.equals(member.name)) {
 					if (strPassword.equals(member.ssn)) {
 						System.out.println("로그인 성공");
 					} else {
@@ -42,24 +39,23 @@ public class Project1 {
 				
 				System.out.println("[필수 정보 입력]"); 
 				System.out.print("1. 이름: ");
-				name2 = scanner.nextLine(); 
+				String name2 = scanner.nextLine(); 
 				System.out.print("2. 주민번호 앞 6자리: ");
-				ssn = scanner.nextLine(); 
+				String ssn = scanner.nextLine(); 
 				System.out.print("3. 전화번호: "); 
-				tel = scanner.nextLine();
+				String tel = scanner.nextLine();
 				System.out.println();
 				System.out.println("[입력된 내용]");
 				System.out.println("1. 이름: " + name2);
 				System.out.println("2. 주민번호 앞 6자리: " + ssn); 
 				System.out.println("3. 전화번호: " + tel);
-				
+				// 객체 생성
 				member = new Member(name2, ssn, tel);
 				break;
 			case 3:
 				// 예금 출금
 				System.out.println("예금 출금");
 				boolean run2 = true;
-				int balance = 0;
 				
 				while (run2) {
 					System.out.println("-------------------------------------");
@@ -70,15 +66,15 @@ public class Project1 {
 					switch (menuNum2) {
 					case 1:
 						System.out.print("예금액> ");
-						balance += Integer.parseInt(scanner.nextLine());
+						member.balance += Integer.parseInt(scanner.nextLine());
 						break;
 					case 2:
 						System.out.print("출금액> ");
-						balance -= Integer.parseInt(scanner.nextLine());
+						member.balance -= Integer.parseInt(scanner.nextLine());
 						break;
 					case 3:
 						System.out.print("잔고> ");
-						System.out.println(balance);
+						System.out.println(member.balance);
 						break;
 					case 4:
 						run2 = false;
