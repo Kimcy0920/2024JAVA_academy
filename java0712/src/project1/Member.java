@@ -1,27 +1,20 @@
 package project1;
 
-import java.io.Serializable;
-
-public class Member implements Serializable {
-	String name;
-	String ssn;   // 주민번호 6자리 패스워드
-	String phone;
+public class Member {
+	String user; // 아이디
+	String userNum; // 주민번호 앞 6자리
+	String pNum; // 전화번호
 	int balance;
-
 	@Override
 	public String toString() {
-		return "Member [name=" + name + ", ssn=" + ssn + ", phone=" + phone + ", balance=" + balance + "]";
+		return "Member [user=" + user + ", userNum=" + userNum + ", pNum=" + pNum + ", balance=" + balance + "]";
 	}
-
-	public Member(String name, String ssn, String phone) {
+	public Member(String user, String userNum, String pNum) {
 		super();
-		this.name = name;
-		this.ssn = ssn;
-		this.phone = phone;
+		this.user = user;
+		this.userNum = userNum;
+		this.pNum = pNum;
 	}
 	
 	public Member() {}
-	
-	
-	
 }

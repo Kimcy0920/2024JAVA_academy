@@ -8,7 +8,7 @@ public class Ex4 {
 
 	public static void main(String[] args) {
 		Member[] list = null;
-		try (FileInputStream fis = new FileInputStream("c:\\temp\\members.dat");
+		try (FileInputStream fis = new FileInputStream("c:\\temp\\members01.dat");
 	             ObjectInputStream ois = new ObjectInputStream(fis)) {
 			list = (Member[]) ois.readObject();
 			System.out.println("파일에서 객체를 가져왔습니다.");

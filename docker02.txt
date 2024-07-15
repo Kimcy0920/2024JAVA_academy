@@ -1,8 +1,15 @@
-p102~p110//
+p.145~146 docker network 설치
+docker network create wordpress000net1
 
+docker run --name mysql000ex11 -dit --net=wordpress000net1 -e MYSQL_ROOT_PASSWORD=myrootpass -e MYSQL_DATABASE=wordpress000db -e MYSQL_USER=wordpress000kun -e MYSQL_PASSWORD=wkunpass mysql:8.0.33 --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+
+docker run --name wordpress000ex12 -dit --net=wordpress000net1 -p 8085:80 -e WORDPRESS_DB_HOST=mysql000ex11 -e WORDPRESS_DB_NAME=wordpress000db -e WORDPRESS_DB_USER=wordpress000kun -e WORDPRESS_DB_PASSWORD=wkunpass wordpress
+--------------------------------------------------------------
+
+p102~p110 docker 명령어
 
 docker rm $(docker ps -qa):
-docker rmi $(docker images-q): 이미지 한번에 삭제
+docker rmi $(docker images -q): 이미지 한번에 삭제
 
 도커 데스크탑 Files -> /usr/local/apache2/htdocs/index.html
 
@@ -29,6 +36,9 @@ docker run --name mysql000ex7 -dit -e MYSQL_ROOT_PASSWORD=1234 mysql
 
 docker exec -it mysql000ex7 mysql -u root -p
 ------------------------------------------------------
+
+Mysql 명령어
+
 show databases;
 create database TEST;
 use TEST;
