@@ -6,25 +6,27 @@ public class CarExample {
 		Car car = new Car();
 		
 		for(int i=1; i<=5; i++) {
-			int problemLocation = car.run();
+			TireLoc problemLocation = car.run();
 			
 			switch(problemLocation) {
-			case 1:
+			case FrontLeftTire:
 				System.out.println("앞왼쪽 HankookTire로 교체");
 				car.frontLeftTire = new HankookTire("앞왼쪽", 15);
 				break;
-			case 2:
+			case FrontRightTire:
 				System.out.println("앞오른쪽 KumhoTire로 교체");
 				car.frontRightTire = new HankookTire("앞오른쪽", 13);
 				break;
-			case 3:
+			case BackLeftTire:
 				System.out.println("뒤왼쪽 HankookTire로 교체");
 				car.backLeftTire = new HankookTire("뒤왼쪽", 14);
 				break;
-			case 4:
+			case BackRightTire:
 				System.out.println("뒤오른쪽 KumhoTire로 교체");
 				car.backRightTire = new HankookTire("뒤오른쪽", 17);
 				break;
+			case NoProblem:
+				System.out.println("몬다이나이");
 			}
 			System.out.println("--------------------------");
 		}
