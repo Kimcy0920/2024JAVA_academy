@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class Cal extends JFrame {
+public class Cal extends JFrame implements ActionListener {
 
 	JTextField tf2 = new JTextField(10);
 	JTextField tf1 = new JTextField(10);
@@ -46,10 +47,10 @@ public class Cal extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-//		jb1.addActionListener(this);
-//		jb2.addActionListener(this);
-//		jb3.addActionListener(this);
-//		jb4.addActionListener(this);
+		jb1.addActionListener(this);
+		jb2.addActionListener(this);
+		jb3.addActionListener(this);
+		jb4.addActionListener(this);
 	}
 	
 	public static void main(String[] args) {
@@ -57,17 +58,17 @@ public class Cal extends JFrame {
 
 	}
 
-//	@Override
-//	public void actionPerformed(ActionEvent e) {
-//		if(e.getSource() == jb1) {
-//			System.out.println("+");
-//		} else if (e.getSource() == jb2) {
-//			System.out.println("-");
-//		} else if (e.getSource() == jb3) {
-//			System.out.println("*");
-//		} else if (e.getSource() == jb4) {
-//			System.out.println("/");
-//		}
-//	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource() == jb1) {
+			System.out.println("+");
+		} else if (e.getSource() == jb2) {
+			System.out.println("-");
+		} else if (e.getSource() == jb3) {
+			System.out.println("*");
+		} else if (e.getSource() == jb4) {
+			System.out.println("/");
+		}
+	}
 	
 }
