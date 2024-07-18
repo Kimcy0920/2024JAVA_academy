@@ -16,7 +16,6 @@ public class Member implements Serializable {
 	//  입금
 	public void deposit(int deposit) {
 		if(deposit <= 0) {
-			System.out.println("금액을 정확히 입력하세요.");
 			return;
 		}
 		balance += deposit;
@@ -25,12 +24,10 @@ public class Member implements Serializable {
 	// 출금
 	public void withdraw(int withdraw) {
 		if(withdraw > balance) {
-			System.out.println("잔액이 부족합니다.");
 			return;
 		}
 		
 		if(withdraw <= 0) {
-			System.out.println("0원 및 마이너스 단위는 출금하실 수 없습니다.");
 			return;
 		}
 		balance -= withdraw;

@@ -19,8 +19,8 @@ public class Ex3 {
 	         System.out.println("객체를 파일에 저장했습니다.");
 			
 			
-		} catch (IOException i) {
-			i.printStackTrace();
+		} catch (IOException e2) {
+			e2.printStackTrace();
 		}
 
 	}

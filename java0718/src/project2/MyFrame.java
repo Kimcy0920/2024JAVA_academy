@@ -98,9 +98,32 @@ public class MyFrame extends JFrame {
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		this.addWindowListener(new JFrameWindowClosingEventHandler());
 		
 	}
+	class JFrameWindowClosingEventHandler extends WindowAdapter { // 저장
+		
+		@Override
+		public void windowClosing(WindowEvent e) {
+			Member[] list2 = list.toArray(new Member[list.size()]);
+			try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
+		             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+				
+				 oos.writeObject(list2);
+		         System.out.println("객체를 파일에 저장했습니다.");
+				
+				
+			} catch (IOException e2) {
+				e2.printStackTrace();
+			}
+			
+			JFrame frame = (JFrame)e.getWindow();
+			frame.dispose();
+			System.out.println("windowClosing()");
+		}
+	}
+	
 	class MyListenerLogin implements ActionListener { // 로그인
 		
 		@Override
@@ -142,7 +165,7 @@ public class MyFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			tf4.getText();
 			member.deposit(Integer.parseInt(tf4.getText()));
-			ta.setText("예금액>\t" + member.getBalance() + "원");
+			ta.setText("예금액>  " + member.getBalance() + "원");
 		}
 		
 	}
@@ -151,7 +174,7 @@ public class MyFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			member.withdraw(Integer.parseInt(tf4.getText()));
-			ta.setText("출금액>\t" +member.getBalance() + "원");
+			ta.setText("출금액>  " +member.getBalance() + "원");
 		}
 		
 	}
@@ -159,30 +182,7 @@ public class MyFrame extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			ta.setText("잔고>\t" + member.getBalance() + "원");
-		}
-		
-	}
-	class JFrameWindowClosingEventHandler extends WindowAdapter {
-
-		@Override
-		public void windowClosed(WindowEvent e) { // 저장
-			
-			Member[] list2 = list.toArray(new Member[list.size()]);
-			try (FileOutputStream fos = new FileOutputStream("c:\\temp\\members.dat");
-		             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-				
-				 oos.writeObject(list2);
-		         System.out.println("객체를 파일에 저장했습니다.");
-				
-				
-			} catch (IOException i) {
-				i.printStackTrace();
-			}
-			
-			JFrame frame = (JFrame)e.getWindow();
-			frame.dispose();
-			System.out.println("windowClosing()");
+			ta.setText("잔고>  " + member.getBalance() + "원");
 		}
 		
 	}
