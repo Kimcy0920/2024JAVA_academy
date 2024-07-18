@@ -59,7 +59,7 @@ public class MyFrame extends JFrame {
 			list = new ArrayList<>(Arrays.asList(list2));
 		
 			ta.setText("파일에서 객체를 가져왔습니다.");
-		} catch (IOException | ClassNotFoundException e) {
+		} catch (IOException | ClassNotFoundException e) { // 파일 가져오기
 			e.printStackTrace();
 		}
 		for (Member member : list) {
@@ -111,14 +111,14 @@ public class MyFrame extends JFrame {
 		             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 				
 				 oos.writeObject(list2);
-		         System.out.println("객체를 파일에 저장했습니다.");
+		         System.out.println("객체를 파일에 저장했습니다."); // 파일 저장하기
 				
 				
 			} catch (IOException e2) {
 				e2.printStackTrace();
 			}
 			
-			JFrame frame = (JFrame)e.getWindow();
+			JFrame frame = (JFrame)e.getWindow(); // 프로그램 종료
 			frame.dispose();
 			System.out.println("windowClosing()");
 		}
@@ -155,7 +155,7 @@ public class MyFrame extends JFrame {
 			
 			list.add(new Member(name2, ssn, tel));
 			ta.setText("회원가입 완료");
-			ta.append("\n[입력된 내용]" + "\n1. 이름: " + name2 + "\n2. 주민번호 앞 6자리: " + ssn + "\n3. 전화번호: " + tel);
+			ta.append("\nMember [name=" + name2 + ", ssn=" + ssn + ", phone=" + tel + "]");
 		}
 		
 	}
@@ -165,7 +165,8 @@ public class MyFrame extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			tf4.getText();
 			member.deposit(Integer.parseInt(tf4.getText()));
-			ta.setText("예금액>  " + member.getBalance() + "원");
+			ta.setText("예금액을 입력하세요.");
+			ta.append("\n예금액>  " + member.getBalance() + "원");
 		}
 		
 	}
@@ -174,7 +175,8 @@ public class MyFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			member.withdraw(Integer.parseInt(tf4.getText()));
-			ta.setText("출금액>  " +member.getBalance() + "원");
+			ta.setText("출금액을 입력하세요.");
+			ta.append("\n출금액>  " +member.getBalance() + "원");
 		}
 		
 	}
