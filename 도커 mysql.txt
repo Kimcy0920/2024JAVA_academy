@@ -1,9 +1,9 @@
 Mysql 이미지 가져오기
-docker pull mysql:8.0.36
+docker pull mysql:8.0.33
 
-docker run --name mysql0711 -p 3307:3307 -d -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=du -e MYSQL_USER=spring5 -e MYSQL_PASSWORD=spring5 mysql:8.0.36
+docker run --name mysql0719 -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=spring5fs -e MYSQL_USER=spring5 -e MYSQL_PASSWORD=spring5 mysql:8.0.33
 
-docker exec -it mysql0710 mysql -u root -p
+docker exec -it mysql0719 mysql -u root -p
 
 
 -- --------------------------------------------------------
