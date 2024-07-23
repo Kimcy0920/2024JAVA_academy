@@ -1,4 +1,4 @@
-package swingjdbc;
+package swing;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -31,13 +32,11 @@ public class ViewDept extends JFrame {
 	ViewDept() {
 		jf = this; // this는 jf를 가르키게 함
 		String URL = "jdbc:mysql://localhost:3307/spring5fs";
-		String sql ="select deptno, dname, loc from dept";
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			conn = DriverManager.getConnection(URL, "root", "mysql");
 			stmt = conn.createStatement();
-			tarea.setText("접속됨");
 		} catch (ClassNotFoundException | SQLException e2) {
 			e2.printStackTrace();
 		}
@@ -61,44 +60,28 @@ public class ViewDept extends JFrame {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		btn.addActionListener(new ActionListener() { // 내부 클래스 - 익명 객체
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		btn.addActionListener((e)-> { // 내부 클래스 - 익명 객체
 				String str = tfield.getText();
-				String sql = String.format("SELECT * FROM dept where loc like '%%%s%%';", str);
 				
 				try {
-					ResultSet rs = stmt.executeQuery(sql); // 1. 코드 반복
-					tarea.setText("");
-					
-//					if(!rs.next()) {
-//						JOptionPane.showMessageDialog(jf, "해당 정보는 없습니다.", "정보", JOptionPane.ERROR_MESSAGE);
-//						// 익명 객체여서 사용할 수 없으나 jframe을 필드, this로 값을 가져다 쓸수 있게됨
-//					}
-//					rs = stmt.executeQuery(sql); // 2. 코드 반복
-					
-					boolean flag = true; // flag 사용
-					
-					while(rs.next()) {
-						flag = false;
-						int deptno = rs.getInt("deptno");
-						String dname = rs.getString("dname");
-						String loc = rs.getString("loc");
-						tarea.append(String.format("%d, %s, %s\n", deptno, dname, loc));
-						// append는 컴포넌트에 계속 누적됨.
-					}
-					
-					if(flag) {
-						JOptionPane.showMessageDialog(jf, "해당 정보는 없습니다.", "정보", JOptionPane.ERROR_MESSAGE);
-					}
+
+					ResultSet rs = stmt.executeQuery(str); // 쿼리 입력받음
+
+		            ResultSetMetaData rsmd = rs.getMetaData();
+		            int columnsNumber = rsmd.getColumnCount();
+		            tarea.setText("");
+		            while (rs.next()) {
+		                for (int i = 1; i <= columnsNumber; i++) {
+		                    if (i > 1) tarea.append(",  ");
+		                    String columnValue = rs.getString(i);
+		                    tarea.append(rsmd.getColumnName(i) + ": " + columnValue);
+		                }
+		                tarea.append("\n");
+		            }
 					
 				} catch (SQLException e3) {
-					e3.printStackTrace();
+					JOptionPane.showMessageDialog(jf, "해당 정보는 없습니다.", "정보", JOptionPane.ERROR_MESSAGE);
 				}
-				
-			}
-			
 			
 		});
 	}

@@ -10,9 +10,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalTime;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -23,12 +25,14 @@ public class ViewDept extends JFrame {
 	JTextField tfield = new JTextField(20);
 	JTextArea tarea = new JTextArea(10, 40);
 	JButton btn = new JButton("조회");
+	
 	Connection conn;
 	Statement stmt;
 	// 커넥션, 스테이트먼트를 필드로 올림
 	JFrame jf; // jframe을 jf로 필드값.
 	
 	ViewDept() {
+		
 		jf = this; // this는 jf를 가르키게 함
 		String URL = "jdbc:mysql://localhost:3307/spring5fs";
 		String sql ="select deptno, dname, loc from dept";
@@ -56,7 +60,13 @@ public class ViewDept extends JFrame {
 		pan2.add(tarea);
 		con.add(pan2, BorderLayout.CENTER);
 		
-		this.setTitle("view dept table");
+		
+		WinTime winTime = new WinTime(); // 시계코드 객체생성, 실행
+		Thread thread = new Thread(winTime); // 스레드 인터페이스
+		thread.start();
+		con.add(winTime, BorderLayout.SOUTH); // winTime 판넬
+		
+//		this.setTitle("view dept table");
 		this.setBounds(1200, 200, 500, 300);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -105,6 +115,51 @@ public class ViewDept extends JFrame {
 	
 	public static void main(String[] args) {
 		new ViewDept();
+	}
+	
+//	class MyPanel extends JPanel implements Runnable {
+//		JLabel label;
+//		MyPanel() {
+//			label = new JLabel();
+//			this.add(label);
+//		}
+//		@Override
+//		public void run() {
+//			for(;;) {
+//				LocalTime localTime = LocalTime.now();
+//				String str = String.format("%d : %d : %d\n", localTime.getHour(), localTime.getMinute(), localTime.getSecond());
+//				this.label(str);
+//				try {
+//					Thread.sleep(1000);
+//				} catch (InterruptedException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		}
+//		
+//	}
+	
+	class WinTime extends JPanel implements Runnable { // 다중상속이 안되기 때문에 Thread를 Runnable 인터페이스로 구현
+		JLabel label;
+		WinTime() {
+			label = new JLabel();
+			this.add(label);
+		}
+		@Override
+		public void run() {
+			for(;;) {
+				LocalTime localTime = LocalTime.now();
+				String str = String.format("%d : %d : %d\n", localTime.getHour(), localTime.getMinute(), localTime.getSecond());
+				label.setText(str);
+				ViewDept.this.setTitle(str);
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 	
 }	

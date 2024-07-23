@@ -21,7 +21,7 @@ public class JdbcSelectExample {
             System.out.println("Connected to the MySQL server successfully.");
 
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+            ResultSet rs = stmt.executeQuery(sql); // 쿼리 입력받음
 
             ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
