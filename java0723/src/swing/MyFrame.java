@@ -26,8 +26,8 @@ public class MyFrame extends JFrame {
 		
 		Field field = new Field(); // field 객체 생성
 		Control control = new Control();
-		this.add(field, BorderLayout.CENTER); // 그림판에 add, Jpanel 상속받은 Field panel 레이아웃
-		this.add(control, BorderLayout.SOUTH); // Jpanel 상속받은 Control panel 레이아웃
+		this.add(field, BorderLayout.CENTER); // 그림판에 add, JFrame 상속받은 panel에 field 레이아웃 설정
+		this.add(control, BorderLayout.SOUTH); // JFrame 상속받은 panel에 Control 레이아웃 설정
 		this.setBounds(1200, 100, 500, 500);
 		this.setVisible(true);
 		
@@ -36,14 +36,15 @@ public class MyFrame extends JFrame {
 		thread.start();
 	}
 	
-	private class Field extends JPanel implements Runnable {
+	private class Field extends JPanel implements Runnable { // 스레드 인터페이스 구현		
+//		JLabel lb1 = new JLabel();
 		JLabel lb1;
 		Field() { // 생성자
 			this.setLayout(new BorderLayout());
 			lb1 = new JLabel();
 			lb1.setIcon(new ImageIcon("./src/stand.gif"));
 			this.add(lb1, BorderLayout.CENTER);
-		}
+		} // 처음 실행 시 상태 stand
 		
 		@Override
 		public void run() {
