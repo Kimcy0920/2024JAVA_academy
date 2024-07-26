@@ -71,14 +71,14 @@ if (find != null) {
 		kor3 = rs.getString("kor");
 		eng3 = rs.getString("eng");
 		math3 = rs.getString("math");
-		
-		if (delete != null) {
-			sql = "delete from score where num=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, num);
-			pstmt.executeUpdate();
-		}
 	}
+}
+
+if (delete != null) {
+	sql = "delete from score where num=?";
+	pstmt = conn.prepareStatement(sql);
+	pstmt.setString(1, delete);
+	pstmt.executeUpdate();
 }
 	
 %>    
