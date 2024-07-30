@@ -1,0 +1,14 @@
+package java0730;
+
+import java.util.Arrays;
+import java.util.List;
+
+public class StreamEx3 {
+
+	public static void main(String[] args) {
+		List<String> list = Arrays.asList("Xxx", "Yyy", "Zzz");
+		list.forEach(System.out::println); // ::표시, 메소드 참조
+
+	}
+
+}
