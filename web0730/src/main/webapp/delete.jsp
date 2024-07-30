@@ -13,11 +13,6 @@ conn = DriverManager.getConnection(URL, "root", "mysql");
 
 request.setCharacterEncoding("UTF-8");
 String num = request.getParameter("num");
-String title = request.getParameter("title");
-String content = request.getParameter("content");
-String writer = request.getParameter("writer");
-String regtime = request.getParameter("regtime");
-String hits = request.getParameter("hits");
 
 String sql = "delete from board where num=?";
 pstmt = conn.prepareStatement(sql);
