@@ -35,7 +35,7 @@ public class BoardDAO {
 	}
 	
 	// 게시판 글 수정
-	public void updataBoard(BoardDTO dto) {
+	public void updateBoard(BoardDTO dto) {
 		conn = JDBCUtil.getConnection();
 		try {
 			stmt = conn.prepareStatement(BOARD_UPDATE);

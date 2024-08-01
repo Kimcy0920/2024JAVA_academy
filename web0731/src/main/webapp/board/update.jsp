@@ -11,5 +11,6 @@ String content = request.getParameter("content");
 String num = request.getParameter("num");
 
 BoardDAO dao = new BoardDAO();
-BoardDTO dto = dao.updataBoard(dto);
+BoardDTO dto = new BoardDTO(0, writer, title, content, "", 0);
+dao.updateBoard(dto);
 %>

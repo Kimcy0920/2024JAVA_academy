@@ -6,7 +6,7 @@
 String num = request.getParameter("num");
 
 BoardDAO dao = new BoardDAO();
-BoardDTO dto = dao.deleteBoard(Integer.parseInt(num));
+dao.deleteBoard(Integer.parseInt(num));
 %>
 <!DOCTYPE html>
 <html>

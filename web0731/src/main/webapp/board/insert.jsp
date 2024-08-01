@@ -9,7 +9,8 @@ String title = request.getParameter("title");
 String content = request.getParameter("content");
 
 BoardDAO dao = new BoardDAO();
-BoardDTO dto = dao.insertBoard();
+BoardDTO dto = new BoardDTO(0, writer, title, content, "", 0);
+dao.insertBoard(dto);
 %>
 
 <!DOCTYPE html>
