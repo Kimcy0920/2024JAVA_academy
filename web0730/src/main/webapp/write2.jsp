@@ -47,18 +47,18 @@ if (rs.next()) {
         <tr>
             <th>제목</th>
             <td><input type="text" name="title"  maxlength="80"
-                       value="">
+                       value="<%=title%>">
             </td>
         </tr>
         <tr>
             <th>작성자</th>
             <td><input type="text" name="writer" maxlength="20"
-                       value="">
+                       value="<%=writer%>">
             </td>
         </tr>
         <tr>
             <th>내용</th>
-            <td><textarea name="content" rows="10"></textarea>
+            <td><textarea name="content" rows="10"><%=content %></textarea>
             </td>
         </tr>
     </table>
