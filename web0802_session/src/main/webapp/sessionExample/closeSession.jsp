@@ -1,9 +1,8 @@
-<%@page import="util.Cookies"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String email = request.getParameter("email");
-response.sendRedirect("saveEmail.jsp");
+// session.invalidate(); // 모든 세션 삭제
+session.removeAttribute("key1"); // 해당 세션 삭제
 %>
 <!DOCTYPE html>
 <html>
@@ -12,6 +11,6 @@ response.sendRedirect("saveEmail.jsp");
 <title></title>
 </head>
 <body>
-이메일을 쿠키에 저장하였습니다.
+<h1>해당 세션 삭제</h1>
 </body>
 </html>

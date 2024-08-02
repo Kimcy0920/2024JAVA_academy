@@ -24,7 +24,9 @@ if (flag) {
 <title>Homepage</title>
 </head>
 <body>
-
+<%
+response.sendRedirect("/web0802/board/list.jsp");
+%>
 </body>
 </html>
 <%

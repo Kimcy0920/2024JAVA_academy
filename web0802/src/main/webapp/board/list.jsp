@@ -54,6 +54,7 @@ for (BoardDTO dto : list) {
 
 <br>
 <input type="button" value="글쓰기" onclick="location.href='write.jsp'">
+<input type="button" value="돌아가기" onclick="location.href='/web0801/index.jsp'">
 
 </body>
 </html>
