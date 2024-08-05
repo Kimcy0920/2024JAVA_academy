@@ -52,8 +52,7 @@ request.setCharacterEncoding("utf-8");
 String id = (String)session.getAttribute("userId");
 String pw = (String)session.getAttribute("password");
 String name = (String)session.getAttribute("username");
-String tel = (String)session.getAttribute("usertel");
-System.out.println(tel);
+String tel = (String)session.getAttribute("tel");
 %>
         <div class="login-container">
     	<h2>회원정보 수정</h2>
