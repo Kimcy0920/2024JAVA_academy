@@ -78,8 +78,8 @@ public class memDAO {
 				stmt = conn.prepareStatement(mem_UPDATE);
 				stmt.setString(1, dto.getPw());
 				stmt.setString(2, dto.getName());
-				stmt.setString(3, dto.getId());
 				stmt.setString(4, dto.getTel());
+				stmt.setString(3, dto.getId());
 				stmt.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
