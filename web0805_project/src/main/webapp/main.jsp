@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%
 String userId = (String) session.getAttribute("userId");
+/*
+ * 1. JdbcUtil.java에서 포트번호 변경하기
+ * 2. Mysql에서 mem DB 생성 후 테스트하기
+ *    create table mem(id varchar(20), pw varchar(20), name varchar(20), tel varchar(20));
+ *    insert into mem(id, pw, name, tel) values('kim1', '1234', '홍길동', '010-1234-5678');
+*/
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -28,7 +35,7 @@ String userId = (String) session.getAttribute("userId");
 <%
 	} else {
 %>
-				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_form.jsp">게시판</a></li>
+				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice.jsp">게시판</a></li>
 				</div1>
 <%
 	}

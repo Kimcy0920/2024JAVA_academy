@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String name = (String) session.getAttribute("username");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,7 +66,7 @@
         	<tr>
             	<th>작성자</th>
             	<td><input type="text" name="writer" maxlength="20"
-                	       value="">
+                	       value="<%=name %>">
             	</td>
         	</tr>
         	<tr>
