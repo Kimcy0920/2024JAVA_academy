@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import util.JdbcUtil;
 
@@ -51,22 +53,22 @@ public class AccountDAO {
 		}
 	}
 	
-//	public List<AccountDTO> getAccountList() {
-//		List<AccountDTO> list = new ArrayList<>();
-//		
-//		conn = JdbcUtil.getConnection();
-//		try {
-//			stmt = conn.prepareStatement(ACCOUNT_LIST);
-//			rs = stmt.executeQuery();
-//			while(rs.next()) {
-//				AccountDTO dto = new AccountDTO(rs.getInt("num"), rs.getString("name"),
-//						rs.getString("ssn"), rs.getString("tel"), rs.getInt("balance"));
-//				list.add(dto);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		
-//		return list;
-//	}
+	public List<AccountDTO> getAccountList() {
+		List<AccountDTO> list = new ArrayList<>();
+		
+		conn = JdbcUtil.getConnection();
+		try {
+			stmt = conn.prepareStatement(ACCOUNT_LIST);
+			rs = stmt.executeQuery();
+			while(rs.next()) {
+				AccountDTO dto = new AccountDTO(rs.getInt("num"), rs.getString("name"),
+						rs.getString("ssn"), rs.getString("tel"), rs.getInt("balance"));
+				list.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 }

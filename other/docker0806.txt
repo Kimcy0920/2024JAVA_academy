@@ -1,0 +1,10 @@
+2024.08.06 도커 오라클 연동
+*oracle 작동 중지하고 cmd 명령어
+
+docker ps -a
+
+docker search oracle
+
+docker pull oracleinanutshell/oracle-xe-11g
+
+docker run -d -p 1521:1521 oracleinanutshell/oracle-xe-11g
