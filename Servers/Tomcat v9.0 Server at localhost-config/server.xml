@@ -160,7 +160,17 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="web0802" path="/web0802" reloadable="true" source="org.eclipse.jst.jee.server:web0802"/><Context docBase="web0802_cookie" path="/web0802_cookie" reloadable="true" source="org.eclipse.jst.jee.server:web0802_cookie"/><Context docBase="web0801" path="/web0801" reloadable="true" source="org.eclipse.jst.jee.server:web0801"/><Context docBase="web0802_session" path="/web0802_session" reloadable="true" source="org.eclipse.jst.jee.server:web0802_session"/><Context docBase="web0802_sessionMember" path="/web0802_sessionMember" reloadable="true" source="org.eclipse.jst.jee.server:web0802_sessionMember"/><Context docBase="web0802_sessionMember2" path="/web0802_sessionMember2" reloadable="true" source="org.eclipse.jst.jee.server:web0802_sessionMember2"/><Context docBase="web0805_project" path="/web0805_project" reloadable="true" source="org.eclipse.jst.jee.server:web0805_project"/><Context docBase="web0806_mybatis" path="/web0806_mybatis" reloadable="true" source="org.eclipse.jst.jee.server:web0806_mybatis"/><Context docBase="web0807" path="/web0807" reloadable="true" source="org.eclipse.jst.jee.server:web0807"/></Host>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <Context docBase="web0808_Mybatis" path="/web0808_Mybatis" reloadable="true" source="org.eclipse.jst.jee.server:web0808_Mybatis"/>
+      <Context docBase="web0808" path="/web0808" reloadable="true" source="org.eclipse.jst.jee.server:web0808"/></Host>
     </Engine>
   </Service>
 </Server>
