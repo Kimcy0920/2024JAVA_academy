@@ -169,11 +169,14 @@
       
       
       
-      <Context docBase="web0808_Mybatis" path="/web0808_Mybatis" reloadable="true" source="org.eclipse.jst.jee.server:web0808_Mybatis"/>
-      <Context docBase="web0808" path="/web0808" reloadable="true" source="org.eclipse.jst.jee.server:web0808"/>
-      <Context docBase="web0809_shop" path="/web0809_shop" reloadable="true" source="org.eclipse.jst.jee.server:web0809_shop"/>
       
-      </Host>
+      
+      
+      
+      
+      
+      <Context docBase="web0809_shop" path="/web0809_shop" reloadable="true" source="org.eclipse.jst.jee.server:web0809_shop"/>
+      <Context docBase="web0812_Mybatis" path="/web0812_Mybatis" reloadable="true" source="org.eclipse.jst.jee.server:web0812_Mybatis"/></Host>
     </Engine>
   </Service>
 </Server>

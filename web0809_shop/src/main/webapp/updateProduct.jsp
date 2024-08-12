@@ -1,10 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%
-String id = request.getParameter("update");
-request.setAttribute("id", Integer.parseInt(id));
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,22 +10,22 @@ request.setAttribute("id", Integer.parseInt(id));
 </head>
 <body>
 	<form action="updateProduct_2.jsp" method="post">
-	<input type="hidden" name="id" value="${id}">
+	<input type="hidden" name="id" value="${product.id}">
 		<div>
 			<label for="name">제품명:</label> <input type="text" id="name"
-				name="name" required>
+				name="name" values=${product.name } required>
 		</div>
 		<div>
 			<label for="description">설명:</label>
-			<textarea id="description" name="description" required></textarea>
+			<textarea id="description" name="description" values=${product.description } required></textarea>
 		</div>
 		<div>
 			<label for="price">가격:</label> <input type="text" id="price"
-				name="price" required>
+				name="price" values=${product.price } required>
 		</div>
 		<div>
 			<label for="stock">수량:</label> <input type="text" id="stock"
-				name="stock" value="" required>
+				name="stock" values=${product.stock } required>
 		</div>
 		<div>
 			<input type="submit" value="Edit Product">
