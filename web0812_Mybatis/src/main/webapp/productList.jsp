@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Product List</h1>
-    <a href="${pageContext.request.contextPath}/registProduct.jsp">Add New Product</a>
+    <a href="${pageContext.request.contextPath}/registProduct.jsp">새 품목 생성</a>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -17,17 +17,17 @@
             <th>Stock</th>
             <th>Actions</th>
         </tr>
-        <c:forEach var="product" items="${products}">
+        <c:forEach var="pdto" items="${products}">
             <tr>
-                <td>${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.description}</td>
-                <td>${product.price}</td>
-                <td>${product.stock}</td>
+                <td>${pdto.id}</td>
+                <td>${pdto.name}</td>
+                <td>${pdto.description}</td>
+                <td>${pdto.price}</td>
+                <td>${pdto.stock}</td>
                 <td>
-                    <a href="${pageContext.request.contextPath}/addToCart.jsp?id=${product.id}">Add</a>
-                    <a href="${pageContext.request.contextPath}/selectOneForUpdate.jsp?id=${product.id}">Edit</a>
-                    <a href="${pageContext.request.contextPath}/deleteProduct.jsp?id=${product.id}">Delete</a>
+                    <a href="${pageContext.request.contextPath}/product/${pdto.id}">장바구니에 추가</a>
+                    <a href="${pageContext.request.contextPath}/selectOneProduct.jsp?id=${pdto.id}">수정</a>
+                    <a href="${pageContext.request.contextPath}/deleteProduct.jsp?id=${pdto.id}">삭제</a>
                 </td>
             </tr>
         </c:forEach>

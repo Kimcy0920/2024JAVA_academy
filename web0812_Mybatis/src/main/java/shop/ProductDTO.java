@@ -9,8 +9,11 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Cart {
+public class ProductDTO {
 	private int id;
-	private int product_id;
-	private int quantity;
+	private String name;
+	private String description;
+	private double price;
+	private int stock;
+
 }

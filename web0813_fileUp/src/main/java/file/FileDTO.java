@@ -1,4 +1,4 @@
-package shop;
+package file;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,10 +9,9 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class Product {
-	private int id;
-	private String name;
-	private String description;
-	private double price;
-	private int stock;
+public class FileDTO {
+	private int num;
+	private String fname;
+	private String ftime;
+	private int fsize;
 }
