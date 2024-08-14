@@ -161,7 +161,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
       <Context docBase="web0812_MyBatis" path="/web0812_MyBatis" reloadable="true" source="org.eclipse.jst.jee.server:web0812_MyBatis"/>
       <Context docBase="web0813_fileUp" path="/web0813_fileUp" reloadable="true" source="org.eclipse.jst.jee.server:web0813_fileUp"/>
-      </Host>
+      <Context docBase="_mvc0814" path="/_mvc0814" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0814"/></Host>
     </Engine>
   </Service>
 </Server>
