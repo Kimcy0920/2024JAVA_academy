@@ -25,27 +25,27 @@ public class MoveTest extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String view = null;
-		
-		// URL에서 프로젝트 이름 뒷 부분의 문자열 얻어내기
-		String uri = request.getRequestURI();
-		String conPath = request.getContextPath();
-		String com = uri.substring(conPath.length());
-		
-		// 주어진 URL에 따라 지정된 동작 수행
-		if (com.equals("/a") || com.equals("/")) { // http://localhost:8080/_mvc0814/
-			view = "a.jsp";
-		} else if (com.equals("/b")) {
-			view = "redirect:b.jsp";
-		}
-		
-		// view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅
-		if (view.startsWith("redirect:")) {
-			response.sendRedirect(view.substring(9));
-		} else {
-			request.getRequestDispatcher(view).forward(request, response);
-		}
+        
+        // URL에서 프로젝트 이름 뒷 부분의 문자열 얻어내기
+        String uri = request.getRequestURI();
+        String conPath = request.getContextPath();
+        String com = uri.substring(conPath.length());
+        
+        // 주어진 URL에 따라 지정된 동작 수행
+        if (com.equals("/a") || com.equals("/")) {
+            view = "a.jsp";
+        } else if (com.equals("/b")){
+            view = "redirect:b.jsp";
+        }
+        
+        // view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅
+        if (view.startsWith("redirect:")) {
+            response.sendRedirect(view.substring(9));
+        } else {
+            request.getRequestDispatcher(view).forward(request, response);
+        }
 	}
 
 	/**

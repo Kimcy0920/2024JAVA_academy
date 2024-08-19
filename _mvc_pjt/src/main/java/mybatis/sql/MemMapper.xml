@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemMapper">
+
+	<select id="selectLogin" parameterType="mem.memDTO" resultType="mem.memDTO">
+		select * from mem where id=#{id} and pw=#{pw}
+	</select>
+	
+	<select id="selectId" parameterType="String" resultType="mem.memDTO">
+		select * from mem where id=#{id}
+	</select>
+	
+	<insert id="insertMem" parameterType="mem.memDTO">
+		insert into mem(id, pw, name, tel) values(#{id}, #{pw}, #{name}, #{tel})
+	</insert>
+	
+	<update id="updateMem" parameterType="mem.memDTO">
+		update mem set pw=#{pw}, name=#{name}, tel=#{tel} where id=#{id}
+	</update>
+</mapper>

@@ -1,16 +1,19 @@
 package com.board.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.board.db.*;
+import com.board.db.BoardDao;
+import com.board.db.BoardDto;
+import com.board.db.Pagination;
 
 public class BoardService {
 
     private static final int listSize = 3;
     private static final int paginationSize = 3;
 
-    public ArrayList<BoardDto> getMsgList(int pageNo) {
-       return new BoardDao().selectList((pageNo - 1) * listSize, listSize);
+    public List<BoardDto> getMsgList(int pageNo) {
+       return new BoardDao().selectList((pageNo-1)*3);
     }
 
     public ArrayList<Pagination> getPagination(int pageNo) {
@@ -19,7 +22,6 @@ public class BoardService {
 
         int numRecords = new BoardDao().getNumRecords();
         int numPages = (int)Math.ceil((double)numRecords / listSize);
-        //                      나누고 나온 몪을 ceil로 올림함.
 
         int firstLink = ((pageNo - 1) / paginationSize)
                         * paginationSize + 1;
@@ -43,7 +45,6 @@ public class BoardService {
                 tmpPageNo = numPages;
             }
             pgnList.add(new Pagination("다음", tmpPageNo, false));
-            // paginationSize보다 리스트가 더 클 경우
         }
 
         return pgnList;
@@ -53,9 +54,9 @@ public class BoardService {
     public BoardDto getMsg(int num) {
         BoardDto dto = new BoardDao().selectOne(num, true);
 
-        dto.setTitle(dto.getTitle().replace (" ",  "&nbsp;")); // 공백은 html공백으로
+        dto.setTitle(dto.getTitle().replace (" ",  "&nbsp;"));
         dto.setContent(dto.getContent().replace(" ",  "&nbsp;")
-                                       .replace("\n", "<br>")); // \n 줄바꿈을 html <br>태그로
+                                       .replace("\n", "<br>"));
 
         return dto;
     }

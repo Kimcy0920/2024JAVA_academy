@@ -2,41 +2,38 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="BoardMapper">
 
-	<select id="getNumRecords" resultType="com.board.db.BoardDto">
+	<select id="selectCountRecords" resultType="int">
 		SELECT COUNT(*) FROM board
 	</select>
-	
+
 	<select id="selectOne" parameterType="int" resultType="com.board.db.BoardDto">
 		SELECT * FROM board WHERE num = #{num}
 	</select>
-	
+
 	<select id="selectLimit" parameterType="int" resultType="com.board.db.BoardDto">
-		SELECT * FROM board ORDER BY num DESC LIMIT ?, ?
+		SELECT * FROM board ORDER BY num DESC LIMIT #{num}, 3
 	</select>
-	
-	<select id="selectAllList" resultType="com.board.db.BoardDto">
-		SELECT * FROM board
-	</select>
-	
+
 	<update id="updateHits" parameterType="int">
-		UPDATE board SET hits = hits + 1 WHERE num = #{num}
+		UPDATE board SET hits =
+		hits + 1 WHERE num = #{num}
 	</update>
-	
+
 	<update id="updateOne" parameterType="int">
-		UPDATE board set writer=#{writer}, title=#{title}, content=#{content}, regtime=#{regtime}
+		UPDATE board SET
+		writer=#{writer}, title=#{title}, content=#{content}, regtime=#{regtime}
 		WHERE num=#{num}
 	</update>
-	
+
 	<insert id="insertOne" parameterType="com.board.db.BoardDto">
 		INSERT INTO board(writer, title, content, regtime, hits)
 		VALUES(#{writer}, #{title}, #{content}, #{regtime}, 0);
 	</insert>
-	
+
 	<delete id="deleteOne" parameterType="int">
 		DELETE FROM board where num = #{num}
 	</delete>
-	
+
 </mapper>
