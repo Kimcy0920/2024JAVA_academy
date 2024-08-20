@@ -164,7 +164,9 @@
       <Context docBase="_mvc0814" path="/_mvc0814" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0814"/>
       <Context docBase="_mvc_pjt" path="/_mvc_pjt" reloadable="true" source="org.eclipse.jst.jee.server:_mvc_pjt"/>
       <Context docBase="_mvc0819" path="/_mvc0819" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0819"/>
-      <Context docBase="_mvc0819_kcy" path="/web0805_project" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0819_kcy"/></Host>
+      <Context docBase="_mvc0819_kcy" path="/_mvc0819_kcy" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0819_kcy"/>
+      <Context docBase="_web0820" path="/_web0820" reloadable="true" source="org.eclipse.jst.jee.server:_web0820"/>
+      </Host>
     </Engine>
   </Service>
 </Server>

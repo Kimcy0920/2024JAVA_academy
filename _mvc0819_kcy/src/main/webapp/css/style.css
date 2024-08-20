@@ -16,6 +16,7 @@ a {
 header {
 	width: 100%;
 	border-bottom: 1px solid #ddd;
+	background: #dffdfc;
 }
 header .inner {
 	width: 1180px;
@@ -31,6 +32,7 @@ header .inner h1 {
 header .inner h1 a {
 	font: bold 24px/1 "arial";
 	color: #444;
+	text-decoration: none;
 }
 header .inner .util {
 	position: absolute;
@@ -45,6 +47,7 @@ header .inner .util li a {
 	font: 12px/1 "arial";
 	color: #999;
 	padding: 0px 10px;
+	text-decoration: none;
 }
 header .inner #gnb {
 	position: absolute;
@@ -60,18 +63,22 @@ header .inner #gnb li a {
 	color: #555;
 	padding: 20px 40px;
 	transition: all 0.5s;
+	text-decoration: none;
 }
 header .inner #gnb li a:hover {
 	background: #555;
 	color: #fff;
+	text-decoration: none;
 }
 figure1 {
 	width: 100%;
 	height: calc(100vh - 120px); /*전체 브라우저 높이에서 120px만큼 빼줌*/
-	background: #000;
+	background: #fff9f4;
 	position: relative;
 	overflow: hidden;
-	padding-top: 550px;
+	display : flex;
+	justify-content: center;
+	align-items: center;
 }
 figure1 img {
 	object-fit: cover; /*영상을 figure안쪽에 꽉 차도록 설정*/
@@ -86,6 +93,9 @@ figure1 .inner {
 	width: 1180px;
 	margin: 0px auto;
 	position: relative;
+	display : flex;
+	justify-content: center;
+	align-items: center;
 
 }
 figure1 .inner h1 {
@@ -199,7 +209,10 @@ section .inner .wrap article .pic img {
 	height: 100%;
 }
 /* footer */
+
 footer {
+	postion : fixed;
+	bottom : 0;
 	width: 100%;
 	background: #333;
 	padding: 100px 0px;
@@ -235,6 +248,7 @@ footer .inner .upper ul li {
 footer .inner .upper ul li a {
 	font: bold 14px/1 "arial";
 	color: #666;
+	text-decoration: none;
 }
 footer .inner .lower {
 	width: 100%;
