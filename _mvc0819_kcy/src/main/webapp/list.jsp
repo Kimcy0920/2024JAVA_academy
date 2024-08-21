@@ -23,63 +23,27 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<!--
-	<nav class="navbar navbar-expand-lg bg-body-tertiary">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Navbar</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item dropdown"><a
-						class="nav-link dropdown-toggle" href="#" role="button"
-						data-bs-toggle="dropdown" aria-expanded="false"> Dropdown </a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="#">Action</a></li>
-							<li><a class="dropdown-item" href="#">Another action</a></li>
-							<li><hr class="dropdown-divider"></li>
-							<li><a class="dropdown-item" href="#">Something else
-									here</a></li>
-						</ul></li>
-					<li class="nav-item"><a class="nav-link disabled"
-						aria-disabled="true">Disabled</a></li>
-				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search"
-						aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form>
-			</div>
-		</div>
-	</nav>
--->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
 	<header>
 		<div class="inner">
 			<h1>
-				<a href="main.jsp">짱구는 못말려</a>
+				<a href="main">짱구는 못말려</a>
 			</h1>
 			<ul id="gnb">
 				<%
-				if ((String) session.getAttribute("userId") != null) {
+				if (session.getAttribute("name") != null) {
 				%>
 				<li><a href="list">게시판</a></li>
 				<%
 				} else {
 				%>
 				<div1 title="로그인 후 이용이 가능합니다.">
-				<li><a href="login_notice.jsp">게시판</a></li>
+				<li><a href="login_notice">게시판</a></li>
 				</div1>
 				<%
 				}
 				%>
-				<li><a href="webhard.jsp">자료실</a></li>
+				<li><a href="webhard">자료실</a></li>
 				<li><a href="products.jsp">장바구니</a></li>
 				<li><a
 					href="https://namu.wiki/w/%EC%A7%B1%EA%B5%AC%EB%8A%94%20%EB%AA%BB%EB%A7%90%EB%A0%A4/%EA%B7%B9%EC%9E%A5%ED%8C%90"
@@ -92,26 +56,27 @@
 					target="_blank">홈페이지 정보</a></li>
 			</ul>
 			<%
-			if ((String) session.getAttribute("userId") != null) {
+			if (session.getAttribute("name") != null) {
 			%>
 			<ul class="util">
-				<li><a><%=(String) session.getAttribute("username")%>님
+				<li><a><%=session.getAttribute("name")%>님
 						환영합니다.</a></li>
-				<li><a href="logout.jsp">로그아웃</a></li>
-				<li><a href="mem_update_form.jsp">회원정보 수정</a></li>
+				<li><a href="logout">로그아웃</a></li>
+				<li><a href="mem_update_view">회원정보 수정</a></li>
 			</ul>
 			<%
 			} else {
 			%>
 			<ul class="util">
-				<li><a href="login_form.jsp">로그인</a></li>
-				<li><a href="signup_form.jsp">회원가입</a></li>
+				<li><a href="login_view">로그인</a></li>
+				<li><a href="signup_view">회원가입</a></li>
 			</ul>
 			<%
 			}
 			%>
 		</div>
 	</header>
+</nav>
 <figure1>
 	<div class="inner">
 	<script

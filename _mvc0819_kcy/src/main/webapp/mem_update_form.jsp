@@ -3,7 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,21 +46,13 @@
     </style>
 </head>
 <body>
-
-<%
-request.setCharacterEncoding("utf-8");
-String id = (String)session.getAttribute("userId");
-String pw = (String)session.getAttribute("password");
-String name = (String)session.getAttribute("username");
-String tel = (String)session.getAttribute("tel");
-%>
         <div class="login-container">
     	<h2>회원정보 수정</h2>
-     		<form action="mem_update.jsp" method="post"> 
-           		아이디: <input type="text" name="id" placeholder="id" value="<%=id %>" required><br>
-          	 	비밀번호: <input type="password" name="pw" placeholder="password" value="<%=pw %>" required><br>
-          	 	이름: <input type="text" name="name" placeholder="name" value="<%=name %>" required><br>
-          	 	전화번호: <input type="text" name="tel" placeholder="tel" value="<%=tel %>" required><br>
+     		<form action="mem_update_form" method="post"> 
+           		아이디: <input type="text" name="id" placeholder="id" value="${id}" readonly><br>
+          	 	비밀번호: <input type="password" name="pw" placeholder="password" value="" required><br>
+          	 	이름: <input type="text" name="name" placeholder="name" value="" required><br>
+          	 	전화번호: <input type="text" name="tel" placeholder="tel" value="" required><br>
             	<button type="submit">저장</button>
         	</form>
     	</div>

@@ -56,7 +56,7 @@
 <body>
 	<div class="container">
         <h2>회원 가입</h2>
-		<form action="signup.jsp" method="post">
+		<form action="signup_form" method="post">
 			<label for="id">아이디:</label>
            	<input type="text" id="id" name="id" required>
             <label for="pw">비밀번호:</label>

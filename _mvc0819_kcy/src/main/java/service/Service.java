@@ -9,7 +9,7 @@ import board.Pagination;
 
 public class Service {
 
-    private static final int listSize = 5;
+    private static final int listSize = 3;
     private static final int paginationSize = 2;
 
     public List<BoardDTO> getMsgList(int pageNo) {
@@ -70,7 +70,8 @@ public class Service {
 
         if (writer  == null || writer.length()  == 0 ||
             title   == null || title.length()   == 0 ||
-            content == null || content.length() == 0) {
+            content == null || content.length() == 0 ||
+            regtime == null || regtime.length() == 0) {
 
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }

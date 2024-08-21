@@ -29,15 +29,15 @@
 		UPDATE board SET hits = hits + 1 WHERE num = #{num}
 	</update>
 
-	<update id="updateOne" parameterType="int">
+	<update id="updateOne" parameterType="board.BoardDTO">
 		UPDATE board SET
-		writer=#{writer},title=#{title},content=#{content},regtime=#{regtime}
-		WHERE num=#{num}
+		writer = #{writer}, title = #{title}, content = #{content}
+		WHERE num = #{num}
 	</update>
 
 	<insert id="insertOne" parameterType="board.BoardDTO">
-		INSERT INTO board(num,writer,title,content,regtime,hits)
-		VALUES(board_seq.nextval,#{writer},#{title},#{content},#{regtime},0);
+		INSERT INTO board(num, writer, title, content, regtime, hits)
+		VALUES (board_seq.nextval, #{writer}, #{title}, #{content}, #{regtime}, 0)
 	</insert>
 
 	<delete id="deleteOne" parameterType="int">

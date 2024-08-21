@@ -16,40 +16,42 @@
 <body>
     <header>
         <div class="inner">
-            <h1><a href="main.jsp">짱구는 못말려</a></h1>
+            <h1><a href="main">짱구는 못말려</a></h1>
             <ul id="gnb">            
 <%
-	if ((String)session.getAttribute("userId") != null) {
+	if (session.getAttribute("name") != null) {
 %>	
             	<li><a href="list">게시판</a></li>
+            	<li><a href="webhard">자료실</a></li>
+				<li><a href="products.jsp">장바구니</a></li>
 <%
 	} else {
 %>
-				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice.jsp">게시판</a></li>
+				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice">게시판</a></li>
+				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice">자료실</a></li>
+				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice">장바구니</a></li>
 				</div1>
 <%
 	}
 %>
-				<li><a href="webhard.jsp">자료실</a></li>
-				<li><a href="products.jsp">장바구니</a></li>
             	<li><a href="https://namu.wiki/w/%EC%A7%B1%EA%B5%AC%EB%8A%94%20%EB%AA%BB%EB%A7%90%EB%A0%A4/%EA%B7%B9%EC%9E%A5%ED%8C%90" target="_blank">극장판</a></li>
                 <li><a href="https://namu.wiki/w/%ED%81%AC%EB%A0%88%EC%9A%A9%20%EC%8B%A0%EC%A7%B1/%EB%93%B1%EC%9E%A5%EC%9D%B8%EB%AC%BC" target="_blank">등장인물</a></li>
                 <li><a href="https://github.com/Kimcy0920/202407JAVA/tree/master/web0805_project" target="_blank">홈페이지 정보</a></li>
             </ul>
 <%
-	if ((String)session.getAttribute("userId") != null) {
+	if (session.getAttribute("name") != null) {
 %>
 			<ul class="util">
-				<li><a><%=(String)session.getAttribute("username")%>님 환영합니다.</a></li>
-                <li><a href="logout.jsp">로그아웃</a></li>
-                <li><a href="mem_update_form.jsp">회원정보 수정</a></li>
+				<li><a><%=session.getAttribute("name")%>님 환영합니다.</a></li>
+                <li><a href="logout">로그아웃</a></li>
+                <li><a href="mem_update_view">회원정보 수정</a></li>
             </ul> 
 <%  
     } else {
 %>
 			<ul class="util">
-                <li><a href="login_form.jsp">로그인</a></li>
-                <li><a href="signup_form.jsp">회원가입</a></li>
+                <li><a href="login_view">로그인</a></li>
+                <li><a href="signup_view">회원가입</a></li>
             </ul>
 <%
     }

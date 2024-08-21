@@ -2,21 +2,21 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="MemMapper">
-	<select id="selectLogin">
+<mapper namespace="MemberMapper">
+	<select id="selectLogin" parameterType="mem.memDTO" resultType="mem.memDTO">
 		SELECT * FROM mem WHERE id = #{id} and pw = #{pw}
 	</select>
 	
-	<select id="selectCheck">
+	<select id="selectCheck" parameterType="String" resultType="mem.memDTO">
 		SELECT * FROM mem WHERE id = #{id}
 	</select>
 	
-	<insert id="updateMem">
+	<insert id="insertMem" parameterType="mem.memDTO">
 		INSERT INTO mem(id, pw, name, tel)
 		VALUES (#{id}, #{pw}, #{name}, #{tel})
 	</insert>
 	
-	<update id="insertMem">
+	<update id="updateMem" parameterType="mem.memDTO">
 		UPDATE mem SET pw = #{pw}, name = #{name}, tel = #{tel} WHERE id = #{id}
 	</update>
 </mapper>
