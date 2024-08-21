@@ -36,7 +36,7 @@
 %>
             	<li><a href="https://namu.wiki/w/%EC%A7%B1%EA%B5%AC%EB%8A%94%20%EB%AA%BB%EB%A7%90%EB%A0%A4/%EA%B7%B9%EC%9E%A5%ED%8C%90" target="_blank">극장판</a></li>
                 <li><a href="https://namu.wiki/w/%ED%81%AC%EB%A0%88%EC%9A%A9%20%EC%8B%A0%EC%A7%B1/%EB%93%B1%EC%9E%A5%EC%9D%B8%EB%AC%BC" target="_blank">등장인물</a></li>
-                <li><a href="https://github.com/Kimcy0920/202407JAVA/tree/master/web0805_project" target="_blank">홈페이지 정보</a></li>
+                <li><a href="https://github.com/Kimcy0920/202407JAVA/tree/master/_mvc0819_kcy" target="_blank">홈페이지 정보</a></li>
             </ul>
 <%
 	if (session.getAttribute("name") != null) {

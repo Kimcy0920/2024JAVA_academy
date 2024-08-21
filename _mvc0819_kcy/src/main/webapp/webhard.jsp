@@ -2,10 +2,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-FileDAO dao = new FileDAO();
-request.setAttribute("list", dao.getAllwebhard());
-%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,7 +54,7 @@ request.setAttribute("list", dao.getAllwebhard());
 					href="https://namu.wiki/w/%ED%81%AC%EB%A0%88%EC%9A%A9%20%EC%8B%A0%EC%A7%B1/%EB%93%B1%EC%9E%A5%EC%9D%B8%EB%AC%BC"
 					target="_blank">등장인물</a></li>
 				<li><a
-					href="https://github.com/Kimcy0920/202407JAVA/tree/master/web0805_project"
+					href="https://github.com/Kimcy0920/202407JAVA/tree/master/_mvc0819_kcy"
 					target="_blank">홈페이지 정보</a></li>
 			</ul>
 			<%
@@ -104,14 +100,14 @@ request.setAttribute("list", dao.getAllwebhard());
 								${dto.fname} </a></td>
 						<td>${dto.ftime}</td>
 						<td class="right">${dto.fsize}&nbsp;&nbsp;</td>
-						<td><a href="del_file?num=${dto.num}">delete</a></td>
+						<td><a href="del_file?num=${dto.num}">DELETE</a></td>
 					</tr>
 				</c:forEach>
 			</table>
 			<form action="add_file" enctype="multipart/form-data"
 				method="post">
-				업로드할 파일을 선택하세요.<br> <input type="file" name="upload"><br>
-				<input type="submit" value="업로드">
+				<input type="file" class="form-control" name="upload"><br>
+				<input type="submit" class="input-group-text" value="업로드">
 			</form>
 		</div>
 	</div>
