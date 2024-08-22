@@ -156,8 +156,8 @@
 
     
 <main class="form-signin w-100 m-auto">
-  <form>
-    <img class="mb-4" src="../assets/brand/door-open.svg" alt="" width="72" height="57">
+  <form method="post" action="${pageContext.request.contextPath}/login">
+    <img class="mb-4" src="${pageContext.request.contextPath}/assets/brand/door-open.svg" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">로그인</h1>
 
     <div class="form-floating">
@@ -179,7 +179,7 @@
     <p class="mt-5 mb-3 text-body-secondary">&copy; @2024.08.21.login</p>
   </form>
 </main>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

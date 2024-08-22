@@ -19,4 +19,8 @@
 	<update id="updateMem" parameterType="mem.memDTO">
 		UPDATE mem SET pw = #{pw}, name = #{name}, tel = #{tel} WHERE id = #{id}
 	</update>
+	
+	<delete id="deleteMem" parameterType="String">
+		DELETE FROM mem WHERE id = #{id}
+	</delete>
 </mapper>

@@ -23,110 +23,108 @@
 	crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-	<header>
-		<div class="inner">
-			<h1>
-				<a href="main">짱구는 못말려</a>
-			</h1>
-			<ul id="gnb">
+	<nav class="navbar navbar-expand-lg bg-body-tertiary">
+		<header>
+			<div class="inner">
+				<h1>
+					<a href="main">짱구는 못말려</a>
+				</h1>
+				<ul id="gnb">
+					<c:choose>
+						<c:when test="${name ne null}">
+							<li><a href="list">게시판</a></li>
+							<li><a href="webhard">자료실</a></li>
+							<li><a href="productList">장바구니</a></li>
+						</c:when>
+						<c:otherwise>
+							<div1 title="로그인 후 이용이 가능합니다.">
+							<li><a href="login_notice">게시판</a></li>
+							<li><a href="login_notice">자료실</a></li>
+							<li><a href="login_notice">장바구니</a></li>
+							</div1>
+						</c:otherwise>
+					</c:choose>
+					<li><a
+						href="https://namu.wiki/w/%EC%A7%B1%EA%B5%AC%EB%8A%94%20%EB%AA%BB%EB%A7%90%EB%A0%A4/%EA%B7%B9%EC%9E%A5%ED%8C%90"
+						target="_blank">극장판</a></li>
+					<li><a
+						href="https://namu.wiki/w/%ED%81%AC%EB%A0%88%EC%9A%A9%20%EC%8B%A0%EC%A7%B1/%EB%93%B1%EC%9E%A5%EC%9D%B8%EB%AC%BC"
+						target="_blank">등장인물</a></li>
+					<li><a
+						href="https://github.com/Kimcy0920/202407JAVA/tree/master/_mvc0819_kcy"
+						target="_blank">홈페이지 정보</a></li>
+				</ul>
 				<%
 				if (session.getAttribute("name") != null) {
 				%>
-				<li><a href="list">게시판</a></li>
+				<ul class="util">
+					<li><a><%=session.getAttribute("name")%>님 환영합니다.</a></li>
+					<li><a href="logout">로그아웃</a></li>
+					<li><a href="mem_update_view">회원정보 수정</a></li>
+				</ul>
 				<%
 				} else {
 				%>
-				<div1 title="로그인 후 이용이 가능합니다.">
-				<li><a href="login_notice">게시판</a></li>
-				</div1>
+				<ul class="util">
+					<li><a href="login_view">로그인</a></li>
+					<li><a href="signup_view">회원가입</a></li>
+				</ul>
 				<%
 				}
 				%>
-				<li><a href="webhard">자료실</a></li>
-				<li><a href="products.jsp">장바구니</a></li>
-				<li><a
-					href="https://namu.wiki/w/%EC%A7%B1%EA%B5%AC%EB%8A%94%20%EB%AA%BB%EB%A7%90%EB%A0%A4/%EA%B7%B9%EC%9E%A5%ED%8C%90"
-					target="_blank">극장판</a></li>
-				<li><a
-					href="https://namu.wiki/w/%ED%81%AC%EB%A0%88%EC%9A%A9%20%EC%8B%A0%EC%A7%B1/%EB%93%B1%EC%9E%A5%EC%9D%B8%EB%AC%BC"
-					target="_blank">등장인물</a></li>
-				<li><a
-					href="https://github.com/Kimcy0920/202407JAVA/tree/master/_mvc0819_kcy"
-					target="_blank">홈페이지 정보</a></li>
-			</ul>
-			<%
-			if (session.getAttribute("name") != null) {
-			%>
-			<ul class="util">
-				<li><a><%=session.getAttribute("name")%>님
-						환영합니다.</a></li>
-				<li><a href="logout">로그아웃</a></li>
-				<li><a href="mem_update_view">회원정보 수정</a></li>
-			</ul>
-			<%
-			} else {
-			%>
-			<ul class="util">
-				<li><a href="login_view">로그인</a></li>
-				<li><a href="signup_view">회원가입</a></li>
-			</ul>
-			<%
-			}
-			%>
-		</div>
-	</header>
-</nav>
-<figure1>
+			</div>
+		</header>
+	</nav>
+	<figure1>
 	<div class="inner">
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-		crossorigin="anonymous"></script>
-	<div class="container" style="padding-top: 50;">
-		<table class="table table-bordered table-hover">
-			<tr>
-				<th class="num">번호</th>
-				<th class="title">제목</th>
-				<th class="writer">작성자</th>
-				<th class="regtime">작성일시</th>
-				<th>조회수</th>
-			</tr>
-
-			<c:forEach var="msg" items="${msgList}">
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+			crossorigin="anonymous"></script>
+		<div class="container" style="padding-top: 50;">
+			<table class="table table-bordered table-hover">
 				<tr>
-					<td>${msg.num}</td>
-					<td style="text-align: left;"><a
-						href="view?num=${msg.num}&page=${param.page}"> ${msg.title} </a></td>
-					<td>${msg.writer}</td>
-					<td>${msg.regtime}</td>
-					<td>${msg.hits}</td>
+					<th class="num">번호</th>
+					<th class="title">제목</th>
+					<th class="writer">작성자</th>
+					<th class="regtime">작성일시</th>
+					<th>조회수</th>
 				</tr>
-			</c:forEach>
-		</table>
 
-		<nav aria-label="Page navigation example">
-			<ul class="pagination justify-content-center">
-				<c:forEach var="pgn" items="${pgnList}">
-					<li class="page-item"><a class="page-link"
-						href="list?page=${pgn.pageNo}"> <c:choose>
-								<c:when test="${pgn.curPage}">
-									<u>${pgn.display}</u>
-								</c:when>
-								<c:otherwise>
+				<c:forEach var="msg" items="${msgList}">
+					<tr>
+						<td>${msg.num}</td>
+						<td style="text-align: left;"><a
+							href="view?num=${msg.num}&page=${param.page}"> ${msg.title} </a></td>
+						<td>${msg.writer}</td>
+						<td>${msg.regtime}</td>
+						<td>${msg.hits}</td>
+					</tr>
+				</c:forEach>
+			</table>
+
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<c:forEach var="pgn" items="${pgnList}">
+						<li class="page-item"><a class="page-link"
+							href="list?page=${pgn.pageNo}"> <c:choose>
+									<c:when test="${pgn.curPage}">
+										<u>${pgn.display}</u>
+									</c:when>
+									<c:otherwise>
 										${pgn.display}
 									</c:otherwise>
-							</c:choose>
-					</a></li>
-				</c:forEach>
-			</ul>
-		</nav>
+								</c:choose>
+						</a></li>
+					</c:forEach>
+				</ul>
+			</nav>
 
-		<button type="button" class="btn btn-outline-primary"
-			onclick="location.href='write'">글쓰기</button>
+			<button type="button" class="btn btn-outline-primary"
+				onclick="location.href='write'">글쓰기</button>
+		</div>
 	</div>
-	</div>
-</figure1>
+	</figure1>
 	<footer>
 		<div class="inner">
 			<div class="upper">

@@ -33,5 +33,8 @@ public class memDAO {
 	public void memUpdate(memDTO mdto) {
 		session.update("MemberMapper.updateMem", mdto);
 	}
-
+	
+	public void memDelete(String id) {
+		session.delete("MemberMapper.deleteMem", id);
+	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,6 +23,9 @@ import file.FileDTO;
 import mem.memDAO;
 import mem.memDTO;
 import service.Service;
+import shop.CartDAO;
+import shop.Product;
+import shop.ProductDAO;
 
 @WebServlet("/")
 public class Controller extends HttpServlet {
@@ -47,10 +51,13 @@ public class Controller extends HttpServlet {
 
 //---------------------------------MEMBER CONTROLLER------------------------------
 		// 메인 화면 동작
-		if (com.equals("/main") || (com.equals("/"))) {
+		if (com.equals("/main") || (com.equals("/"))) { // 메인화면
 			request.setCharacterEncoding("utf-8");
 			view = "main.jsp";
 			// 로그인 동작 수행
+		} else if (com.equals("/login_view")) { // 로그인 화면
+			view = "login_form.jsp";
+			
 		} else if (com.equals("/login_view")) {
 			view = "login_form.jsp";
 			
@@ -64,7 +71,7 @@ public class Controller extends HttpServlet {
 			memDAO mdao = new memDAO();
 			memDTO mdto = mdao.memLogin(new memDTO(id, pw, "", ""));
 			
-			if (mdto != null) {
+			if (mdto != null) { // 로그인 정보 확인
 				session.setAttribute("id", mdto.getId());
 				session.setAttribute("name", mdto.getName());
 				view = "redirect:main";
@@ -74,15 +81,15 @@ public class Controller extends HttpServlet {
 				view = "redirect:login_form";
 			}
 
-		} else if (com.equals("/logout")) {
+		} else if (com.equals("/logout")) { // 로그아웃
 			session.invalidate();
 			view = "redirect:main";
 
-		} else if (com.equals("/login_notice")) {
+		} else if (com.equals("/login_notice")) { // 로그인 안내문
 			out.println("<script>alert('로그인 후 이용이 가능합니다.');"
 					+ "location.href='login_view'; </script>");
 			
-		} else if (com.equals("/mem_update_view")){
+		} else if (com.equals("/mem_update_view")){ // 회원정보 수정
 			view = "mem_update_form.jsp";
 			
 		} else if (com.equals("/mem_update_form")) {
@@ -97,7 +104,14 @@ public class Controller extends HttpServlet {
 			out.println("<script>alert('수정이 완료되었습니다.');"
 					+ "location.href='logout'; </script>");
 
-		} else if (com.equals("/signup_view")) {
+		} else if (com.equals("/mem_delete")) {
+			String id = (String) session.getAttribute("id");
+			memDAO dao = new memDAO();
+			dao.memDelete(id);
+			out.println("<script>alert('회원 탈퇴되었습니다.');"
+					+ "location.href='logout'; </script>");
+			
+		} else if (com.equals("/signup_view")) { // 회원가입 화면
 			view = "signup_form.jsp";
 			
 		} else if (com.equals("/signup_form")) {
@@ -111,17 +125,17 @@ public class Controller extends HttpServlet {
 			memDTO dto = dao.memCheck(id);
 			memDTO dto2 = new memDTO(id, pw, name, tel);
 
-			if (dto != null) {
-				out.println("<script>alert('이미 등록된 아이디입니다.');" + "history.back()</script>");
+			if (dto != null) { // 회원정보 비교
+				out.println("<script>alert('이미 등록된 아이디입니다.');" + "history.back(); </script>");
 				out.close();
 			} else {
 				dao.memSignup(dto2);
-				out.println("<script>alert('가입이 완료되었습니다.');" + "location.href='login_form'; </script>");
+				out.println("<script>alert('가입이 완료되었습니다.');" + "location.href='login_view'; </script>");
 			}
 		}
 
 //---------------------------------BOARD CONTROLLER------------------------------
-		else if (com.equals("/list")) {
+		else if (com.equals("/list")) { // 게시판 화면
 			String tmp = request.getParameter("page");
 			int pageNo = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 1;
 
@@ -129,16 +143,18 @@ public class Controller extends HttpServlet {
 			request.setAttribute("pgnList", new Service().getPagination(pageNo));
 			view = "/list.jsp";
 
-		} else if (com.equals("/view")) {
+		} else if (com.equals("/view")) { // 게시판 글 화면
 			int num = Integer.parseInt(request.getParameter("num"));
 
 			request.setAttribute("msg", new Service().getMsg(num));
+			String id = request.getParameter("id");
 			view = "/view.jsp";
-
-		} else if (com.equals("/write")) {
+			
+		} else if (com.equals("/write")) { // 게시판 작성 화면
 			String tmp = request.getParameter("num");
 			int num = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
-
+			
+			String name = (String) session.getAttribute("name");
 			BoardDTO dto = new BoardDTO();
 			String action = "insert";
 
@@ -151,7 +167,7 @@ public class Controller extends HttpServlet {
 			request.setAttribute("action", action);
 			view = "/write.jsp";
 
-		} else if (com.equals("/insert")) {
+		} else if (com.equals("/insert")) { // 게시판 글 작성 화면
 			request.setCharacterEncoding("utf-8");
 			String writer = request.getParameter("writer");
 			String title = request.getParameter("title");
@@ -167,7 +183,7 @@ public class Controller extends HttpServlet {
 				view = "/errorBack.jsp";
 			}
 
-		} else if (com.equals("/update")) {
+		} else if (com.equals("/update")) { // 게시판 글 수정 화면
 			request.setCharacterEncoding("utf-8");
 			int num = Integer.parseInt(request.getParameter("num"));
 			String writer = request.getParameter("writer");
@@ -183,7 +199,7 @@ public class Controller extends HttpServlet {
 				view = "/errorBack.jsp";
 			}
 
-		} else if (com.equals("/delete")) {
+		} else if (com.equals("/delete")) { // 게시판 글 삭제
 			int num = Integer.parseInt(request.getParameter("num"));
 
 			new Service().deleteMsg(num);
@@ -191,11 +207,11 @@ public class Controller extends HttpServlet {
 		}
 
 //---------------------------------FILE CONTROLLER------------------------------
-		else if (com.equals("/webhard")) {
+		else if (com.equals("/webhard")) { // 자료실 화면
 			FileDAO fdao = new FileDAO();
 			request.setAttribute("list", fdao.getAllwebhard());
 			view = "/webhard.jsp";
-		} else if (com.equals("/add_file")) {
+		} else if (com.equals("/add_file")) { // 자료실 파일 등록
 
 			MultipartRequest multi = new MultipartRequest(request, request.getServletContext().getRealPath("/files"), 100 * 1024 * 1024,
 					"utf-8", new DefaultFileRenamePolicy());
@@ -211,8 +227,10 @@ public class Controller extends HttpServlet {
 
 				// 메인 페이지로 돌아가기
 				view = "redirect:webhard";
+			} else {
+				out.println("<script>alert('업로드할 파일을 선택해주세요.');" + "history.back();</script>");
 			}
-		} else if (com.equals("/del_file")) {
+		} else if (com.equals("/del_file")) { // 자료실 파일 삭제
 			int num = Integer.parseInt(request.getParameter("num"));
 			FileDAO dao = new FileDAO();
 			FileDTO dto = dao.getFileByNum(num);
@@ -227,7 +245,94 @@ public class Controller extends HttpServlet {
 			}
 			view = "redirect:webhard";
 		}
+		
+//---------------------------------PRODUCT CONTROLLER------------------------------
+		else if (com.equals("/productList")) { // 쇼핑몰 화면
+			ProductDAO pdao = new ProductDAO();
+			List<Product> products = pdao.getAllProducts();
+			request.setAttribute("products", products);
+//			out.println("<script>let flag = $ {flag};"
+//					+ "if (flag) { alert('선택하신 상품은 삭제하실 수 없습니다.'); }</script>");
+			view = "productList.jsp";
+			
+		} else if (com.equals("/registProduct_view")) {
+			view = "registProduct.jsp";
+			
+		} else if (com.equals("/registProduct")) { // 물품 등록 화면
+			request.setCharacterEncoding("UTF-8");
+			String name = request.getParameter("name");
+			String description = request.getParameter("description");
+			String price = request.getParameter("price");
+			String stock = request.getParameter("stock");
+			Product product = new Product(0, name, description, Double.parseDouble(price), Integer.parseInt(stock));
+			ProductDAO productDAO = new ProductDAO();
+			productDAO.addProduct(product);
+			view = "redirect:productList";
+			
+		} else if (com.equals("/modifyProduct")) {	// 물품 정보 수정 화면
+			request.setCharacterEncoding("UTF-8");
+			String id = request.getParameter("id");
+			ProductDAO productDAO = new ProductDAO();
+			Product product = productDAO.getProductById(Integer.parseInt(id));
+			request.setAttribute("product", product);
+			view = "modifyProduct.jsp";
+			
+		} else if (com.equals("/updateProduct")) { // 물품 정보 수정
+			request.setCharacterEncoding("UTF-8");
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String description = request.getParameter("description");
+			String price = request.getParameter("price");
+			String stock = request.getParameter("stock");
+			Product product = new Product(Integer.parseInt(id), name, description, Double.parseDouble(price), Integer.parseInt(stock));
+			ProductDAO productDAO = new ProductDAO();
+			productDAO.updateProduct(product);	
+			view = "redirect:productList";
+			
+		} else if (com.equals("/deleteProduct")) { // 물품 삭제
+			request.setCharacterEncoding("UTF-8");
+			String id = request.getParameter("id");
 
+			ProductDAO productDAO = new ProductDAO();
+			boolean ret = productDAO.deleteProduct(Integer.parseInt(id));
+			request.setAttribute("flag", ret);
+			view = "redirect:productList";
+		}
+		
+//---------------------------------CART CONTROLLER------------------------------
+		else if (com.equals("/viewCart")) { // 장바구니 화면
+			CartDAO dao = new CartDAO();
+			request.setAttribute("list", dao.viewCart());
+//			out.println("<script>let flag = $ {flag};"
+//					+ "if (flag) { alert('선택하신 상품은 수량이 부족합니다.');"
+//					+ "location.href='productList' }</script>");
+			view = "viewCart.jsp";
+			
+		} else if (com.equals("/addToCart")) {
+			String id = request.getParameter("id");
+			CartDAO dao = new CartDAO();
+			ProductDAO pdao = new ProductDAO();
+			System.out.println(pdao.countProducts(Integer.parseInt(id)));
+			if (pdao.countProducts(Integer.parseInt(id)) <= 0) {
+
+				out.println("장바구니에 담을 수량이 부족합니다!");
+				request.setAttribute("flag", true);
+			} else {
+				pdao.decreaseStock(Integer.parseInt(id));
+				
+				dao.addToCart(Integer.parseInt(id));
+			}
+
+			request.setAttribute("list", dao.viewCart());
+			view = "redirect:productList";
+		
+		} else if (com.equals("/deleteCart")) {
+			String id = request.getParameter("id");
+			CartDAO dao = new CartDAO();
+			dao.deleteProduct(Integer.parseInt(id));
+			view = "redirect:viewCart";
+		}
+		
 		// view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅
 		if (view.startsWith("redirect:")) {
 			response.sendRedirect(view.substring(9));

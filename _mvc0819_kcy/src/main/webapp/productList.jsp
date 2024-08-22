@@ -28,23 +28,20 @@
 				<a href="main">짱구는 못말려</a>
 			</h1>
 			<ul id="gnb">
-				<%
-				if (session.getAttribute("name") != null) {
-				%>
-				<li><a href="list">게시판</a></li>
-				<li><a href="webhard">자료실</a></li>
-				<li><a href="products.jsp">장바구니</a></li>
-				<%
-				} else {
-				%>
-				<div1 title="로그인 후 이용이 가능합니다.">
-				<li><a href="login_notice">게시판</a></li>
-				<li><a href="login_notice">자료실</a></li>
-				<li><a href="login_notice">장바구니</a></li>
-				</div1>
-				<%
-				}
-				%>
+				<c:choose>
+					<c:when test="${name ne null}">
+						<li><a href="list">게시판</a></li>
+						<li><a href="webhard">자료실</a></li>
+						<li><a href="productList">장바구니</a></li>
+					</c:when>
+					<c:otherwise>
+						<div1 title="로그인 후 이용이 가능합니다.">
+						<li><a href="login_notice">게시판</a></li>
+						<li><a href="login_notice">자료실</a></li>
+						<li><a href="login_notice">장바구니</a></li>
+						</div1>
+					</c:otherwise>
+				</c:choose>
 				<li><a
 					href="https://namu.wiki/w/%EC%A7%B1%EA%B5%AC%EB%8A%94%20%EB%AA%BB%EB%A7%90%EB%A0%A4/%EA%B7%B9%EC%9E%A5%ED%8C%90"
 					target="_blank">극장판</a></li>
@@ -55,25 +52,21 @@
 					href="https://github.com/Kimcy0920/202407JAVA/tree/master/_mvc0819_kcy"
 					target="_blank">홈페이지 정보</a></li>
 			</ul>
-			<%
-			if (session.getAttribute("name") != null) {
-			%>
-			<ul class="util">
-				<li><a><%=session.getAttribute("name")%>님
-						환영합니다.</a></li>
-				<li><a href="logout">로그아웃</a></li>
-				<li><a href="mem_update_view">회원정보 수정</a></li>
-			</ul>
-			<%
-			} else {
-			%>
-			<ul class="util">
-				<li><a href="login_view">로그인</a></li>
-				<li><a href="signup_view">회원가입</a></li>
-			</ul>
-			<%
-			}
-			%>
+			<c:choose>
+				<c:when test="${name ne null}">
+					<ul class="util">
+						<li><a>${name}님 환영합니다.</a></li>
+						<li><a href="logout">로그아웃</a></li>
+						<li><a href="mem_update_view">회원정보 수정</a></li>
+					</ul>
+				</c:when>
+				<c:otherwise>
+					<ul class="util">
+						<li><a href="login_view">로그인</a></li>
+						<li><a href="signup_view">회원가입</a></li>
+					</ul>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</header>
 	<figure1>
@@ -84,8 +77,8 @@
 			crossorigin="anonymous"></script>
 		<div class="container" style="padding-top: 50;">
 			<table class="table table-bordered table-hover">
-				<a href="${pageContext.request.contextPath}/registProduct.jsp">물품등록</a>&nbsp;
-				<a href="${pageContext.request.contextPath}/justViewCart.jsp">장바구니로</a>
+				<a href="${pageContext.request.contextPath}/registProduct_view">물품등록</a>&nbsp;
+				<a href="${pageContext.request.contextPath}/viewCart">장바구니로</a>
 				<tr>
 					<th class="id">ID</th>
 					<th class="name">Name</th>
@@ -101,9 +94,9 @@
 						<td>${product.description}</td>
 						<td>${product.price}</td>
 						<td>${product.stock}</td>
-						<td><a href="${pageContext.request.contextPath}/addToCart.jsp?id=${product.id}">담기</a>
-							<a href="${pageContext.request.contextPath}/selectOneForUpdate.jsp?id=${product.id}">수정</a>
-							<a href="${pageContext.request.contextPath}/deleteProduct.jsp?id=${product.id}">삭제</a>
+						<td><a href="${pageContext.request.contextPath}/addToCart?id=${product.id}">담기</a>
+							<a href="${pageContext.request.contextPath}/modifyProduct?id=${product.id}">수정</a>
+							<a href="${pageContext.request.contextPath}/deleteProduct?id=${product.id}">삭제</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -111,15 +104,6 @@
 		</div>
 	</div>
 	</figure1>
-	<script type="text/javascript">
-		let flag = $
-		{
-			flag
-		};
-		if (flag) {
-			alert("선택하신 상품은 삭제하실 수 없습니다.");
-		}
-	</script>
 	<footer>
 		<div class="inner">
 			<div class="upper">
