@@ -21,15 +21,16 @@
             <h1><a href="main">짱구는 못말려</a></h1>
             <ul id="gnb">            
 				<c:choose>
-				<c:when test="${name eq null}">
+				<c:when test="${name ne null}">
             	<li><a href="list">게시판</a></li>
             	<li><a href="webhard">자료실</a></li>
-				<li><a href="products.jsp">장바구니</a></li>
+				<li><a href="productList">장바구니</a></li>
 				</c:when>
 				<c:otherwise>
-				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice">게시판</a></li>
-				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice">자료실</a></li>
-				<div1 title="로그인 후 이용이 가능합니다."><li><a href="login_notice">장바구니</a></li>
+				<div1 title="로그인 후 이용이 가능합니다.">
+				<li><a href="login_notice">게시판</a></li>
+				<li><a href="login_notice">자료실</a></li>
+				<li><a href="login_notice">장바구니</a></li>
 				</div1>
 				</c:otherwise>
 				</c:choose>
@@ -51,7 +52,7 @@
                 <li><a href="signup_view">회원가입</a></li>
             </ul>
 			</c:otherwise>
-			</c:choose>  
+			</c:choose>
         </div>
     </header>
 

@@ -168,7 +168,8 @@
       
       
       
-      <Context docBase="_mvc0819_kcy" path="/_mvc0819_kcy" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0819_kcy"/><Context docBase="_mvc0822" path="/_mvc0822" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0822"/></Host>
+      
+      <Context docBase="_mvc0822" path="/_mvc0822" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0822"/><Context docBase="_mvc0819_kcy" path="/_mvc0819_kcy" reloadable="true" source="org.eclipse.jst.jee.server:_mvc0819_kcy"/></Host>
     </Engine>
   </Service>
 </Server>

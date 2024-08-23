@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,12 +17,16 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import board.BoardDAO;
 import board.BoardDTO;
 import file.FileDAO;
 import file.FileDTO;
 import mem.memDAO;
 import mem.memDTO;
 import service.Service;
+import shop.CartDAO;
+import shop.Product;
+import shop.ProductDAO;
 
 @WebServlet("/")
 public class Controller extends HttpServlet {
@@ -46,68 +51,85 @@ public class Controller extends HttpServlet {
 		String com = uri.substring(conPath.length());
 
 //---------------------------------MEMBER CONTROLLER------------------------------
+
 		// 메인 화면 동작
 		if (com.equals("/main") || (com.equals("/"))) {
 			request.setCharacterEncoding("utf-8");
 			view = "main.jsp";
-			// 로그인 동작 수행
+
+		// 로그인 동작 수행
 		} else if (com.equals("/login_view")) {
 			view = "login_form.jsp";
-			
+
 		} else if (com.equals("/login_form")) {
-			
+
 			request.setCharacterEncoding("utf-8");
-			
+
 			String id = request.getParameter("id");
 			String pw = request.getParameter("pw");
 
 			memDAO mdao = new memDAO();
 			memDTO mdto = mdao.memLogin(new memDTO(id, pw, "", ""));
-			
+
 			if (mdto != null) {
 				session.setAttribute("id", mdto.getId());
+				session.setAttribute("pw", mdto.getPw());
 				session.setAttribute("name", mdto.getName());
+				session.setAttribute("tel", mdto.getTel());
+				
 				view = "redirect:main";
 			} else {
-				out.println("<script>alert('아이디 또는 비밀번호가 틀립니다!');" + "history.back()</script>");
+				out.println("<script>alert('잘못된 아이디 또는 비밀번호입니다.'); history.back(); </script>");
 				out.close();
 				view = "redirect:login_form";
 			}
 
+		// 로그아웃
 		} else if (com.equals("/logout")) {
 			session.invalidate();
 			view = "redirect:main";
 
+		// 로그인 안내
 		} else if (com.equals("/login_notice")) {
-			out.println("<script>alert('로그인 후 이용이 가능합니다.');"
-					+ "location.href='login_view'; </script>");
-			
-		} else if (com.equals("/mem_update_view")){
+			out.println("<script>alert('로그인 후 이용이 가능합니다.'); location.href='login_view'; </script>");
+
+		// 회원정보 수정
+		} else if (com.equals("/mem_update_view")) {
 			view = "mem_update_form.jsp";
-			
+
 		} else if (com.equals("/mem_update_form")) {
 			request.setCharacterEncoding("utf-8");
 			String id = (String) session.getAttribute("id");
-			String pw = request.getParameter("pw");
-			String name = request.getParameter("name");
-			String tel = request.getParameter("tel");
+			String pw = (String) session.getAttribute("pw");
+			String name = (String) session.getAttribute("name");
+			String tel = (String) session.getAttribute("tel");
+			
+			String m_pw = request.getParameter("pw");
+			String m_name = request.getParameter("name");
+			String m_tel = request.getParameter("tel");
 
 			memDAO dao = new memDAO();
-			dao.memUpdate(new memDTO(id, pw, name, tel));
-			out.println("<script>alert('수정이 완료되었습니다.');"
-					+ "location.href='logout'; </script>");
+			dao.memUpdate(new memDTO(id, m_pw, m_name, m_tel));
+			out.println("<script>alert('수정이 완료되었습니다.'); location.href='login_view'; </script>");
 
+		// 회원정보 삭제
 		} else if (com.equals("/mem_delete")) {
 			String id = (String) session.getAttribute("id");
+			String name = (String) session.getAttribute("name");
+
+			BoardDAO bdao = new BoardDAO();
+			bdao.deleteWriter(name);
+
 			memDAO dao = new memDAO();
 			dao.memDelete(id);
+
 			session.invalidate();
-			out.println("<script>alert('회원 탈퇴되었습니다.');"
-					+ "location.href='login_view'; </script>");
-			
+			out.println("<script>alert('회원 탈퇴되었습니다.'); location.href='login_view'; </script>");
+
+		// 회원가입
 		} else if (com.equals("/signup_view")) {
 			view = "signup_form.jsp";
-			
+
 		} else if (com.equals("/signup_form")) {
 			request.setCharacterEncoding("utf-8");
 			String id = request.getParameter("id");
@@ -120,15 +142,17 @@ public class Controller extends HttpServlet {
 			memDTO dto2 = new memDTO(id, pw, name, tel);
 
 			if (dto != null) {
-				out.println("<script>alert('이미 등록된 아이디입니다.');" + "history.back()</script>");
+				out.println("<script>alert('이미 등록된 아이디입니다.'); history.back(); </script>");
 				out.close();
 			} else {
 				dao.memSignup(dto2);
-				out.println("<script>alert('가입이 완료되었습니다.');" + "location.href='login_view'; </script>");
+				out.println("<script>alert('가입이 완료되었습니다.'); location.href='login_view'; </script>");
 			}
 		}
 
 //---------------------------------BOARD CONTROLLER------------------------------
+
+		// 게시판 글 리스트
 		else if (com.equals("/list")) {
 			String tmp = request.getParameter("page");
 			int pageNo = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 1;
@@ -137,19 +161,21 @@ public class Controller extends HttpServlet {
 			request.setAttribute("pgnList", new Service().getPagination(pageNo));
 			view = "/list.jsp";
 
+		// 게시판 글 보기
 		} else if (com.equals("/view")) {
 			int num = Integer.parseInt(request.getParameter("num"));
 			String name = (String) session.getAttribute("name");
-			
+
 			request.setAttribute("msg", new Service().getMsg(num));
 			view = "/view.jsp";
 
+		// 게시판 글 작성
 		} else if (com.equals("/write")) {
 			String tmp = request.getParameter("num");
 			String id = (String) session.getAttribute("id");
-			
+
 			int num = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
-			
+
 			BoardDTO dto = new BoardDTO();
 			String action = "insert";
 
@@ -178,6 +204,7 @@ public class Controller extends HttpServlet {
 				view = "/errorBack.jsp";
 			}
 
+		// 게시판 글 수정
 		} else if (com.equals("/update")) {
 			request.setCharacterEncoding("utf-8");
 			int num = Integer.parseInt(request.getParameter("num"));
@@ -194,6 +221,7 @@ public class Controller extends HttpServlet {
 				view = "/errorBack.jsp";
 			}
 
+		// 게시판 글 삭제
 		} else if (com.equals("/delete")) {
 			int num = Integer.parseInt(request.getParameter("num"));
 
@@ -202,14 +230,18 @@ public class Controller extends HttpServlet {
 		}
 
 //---------------------------------FILE CONTROLLER------------------------------
+
+		// 자료실 화면
 		else if (com.equals("/webhard")) {
 			FileDAO fdao = new FileDAO();
 			request.setAttribute("list", fdao.getAllwebhard());
 			view = "/webhard.jsp";
+
+		// 파일 선택 및 업로드
 		} else if (com.equals("/add_file")) {
 
-			MultipartRequest multi = new MultipartRequest(request, request.getServletContext().getRealPath("/files"), 100 * 1024 * 1024,
-					"utf-8", new DefaultFileRenamePolicy());
+			MultipartRequest multi = new MultipartRequest(request, request.getServletContext().getRealPath("/files"),
+					100 * 1024 * 1024, "utf-8", new DefaultFileRenamePolicy());
 
 			File file = multi.getFile("upload");
 
@@ -222,7 +254,11 @@ public class Controller extends HttpServlet {
 
 				// 메인 페이지로 돌아가기
 				view = "redirect:webhard";
+			} else {
+				out.println("<script>alert('파일을 선택해주세요.'); location.href='webhard'; </script>");
 			}
+
+		// 파일 삭제
 		} else if (com.equals("/del_file")) {
 			int num = Integer.parseInt(request.getParameter("num"));
 			FileDAO dao = new FileDAO();
@@ -237,6 +273,102 @@ public class Controller extends HttpServlet {
 				dao.deleteFile(num);
 			}
 			view = "redirect:webhard";
+		}
+
+//---------------------------------PRODUCT CONTROLLER------------------------------
+
+		// 물품 목록 리스트
+		else if (com.equals("/productList")) {
+			ProductDAO pdao = new ProductDAO();
+			List<Product> products = pdao.getAllProducts();
+			request.setAttribute("products", products);
+			view = "productList.jsp";
+
+		// 물품 등록
+		} else if (com.equals("/registProduct")) {
+			view = "registProduct.jsp";
+
+		} else if (com.equals("/insertProduct")) {
+			request.setCharacterEncoding("UTF-8");
+			String name = request.getParameter("name");
+			String description = request.getParameter("description");
+			String price = request.getParameter("price");
+			String stock = request.getParameter("stock");
+			Product product = new Product(0, name, description, Double.parseDouble(price), Integer.parseInt(stock));
+			ProductDAO productDAO = new ProductDAO();
+			productDAO.addProduct(product);
+
+			view = "redirect:productList";
+
+		} else if (com.equals("/modifyProduct")) {
+			request.setCharacterEncoding("UTF-8");
+			String id = request.getParameter("id");
+
+			ProductDAO productDAO = new ProductDAO();
+			Product product = productDAO.getProductById(Integer.parseInt(id));
+			request.setAttribute("product", product);
+
+			view = "modifyProduct.jsp";
+
+		// 물품 정보 수정
+		} else if (com.equals("/updateProduct")) {
+			request.setCharacterEncoding("UTF-8");
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String description = request.getParameter("description");
+			String price = request.getParameter("price");
+			String stock = request.getParameter("stock");
+			Product product = new Product(Integer.parseInt(id), name, description, Double.parseDouble(price),
+					Integer.parseInt(stock));
+			ProductDAO productDAO = new ProductDAO();
+			productDAO.updateProduct(product);
+
+			view = "redirect:productList";
+
+		// 물품 삭제
+		} else if (com.equals("/deleteProduct")) {
+			request.setCharacterEncoding("UTF-8");
+			String id = request.getParameter("id");
+
+			ProductDAO productDAO = new ProductDAO();
+			boolean ret = productDAO.deleteProduct(Integer.parseInt(id));
+			request.setAttribute("flag", ret);
+
+			view = "redirect:productList";
+		}
+
+//---------------------------------CART CONTROLLER------------------------------
+
+		// 장바구니 목록
+		else if (com.equals("/viewCart")) {
+			CartDAO dao = new CartDAO();
+			request.setAttribute("list", dao.viewCart());
+
+			view = "viewCart.jsp";
+
+		// 장바구니에 저장
+		} else if (com.equals("/addToCart")) {
+			String id = request.getParameter("id");
+			CartDAO dao = new CartDAO();
+			ProductDAO pdao = new ProductDAO();
+
+			if (pdao.countProducts(Integer.parseInt(id)) <= 0) {
+				out.println("<script>alert('장바구니에 담을 수량이 부족합니다.'); history.back(); </script>");
+				request.setAttribute("flag", true);
+			} else {
+				pdao.decreaseStock(Integer.parseInt(id));
+				dao.addToCart(Integer.parseInt(id));
+			}
+			request.setAttribute("list", dao.viewCart());
+			view = "redirect:viewCart";
+
+		// 장바구니 항목 삭제
+		} else if (com.equals("/deleteCart")) {
+			String id = request.getParameter("id");
+			CartDAO dao = new CartDAO();
+			dao.deleteProduct(Integer.parseInt(id));
+
+			view = "redirect:viewCart";
 		}
 
 		// view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅

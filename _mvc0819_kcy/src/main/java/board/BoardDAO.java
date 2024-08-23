@@ -61,4 +61,8 @@ public class BoardDAO {
 	public void deleteOne(int num) {
 		session.delete("BoardMapper.deleteOne", num);
 	}
+	
+	public void deleteWriter(String writer) {
+		session.delete("BoardMapper.deleteWriter", writer);
+	}
 }

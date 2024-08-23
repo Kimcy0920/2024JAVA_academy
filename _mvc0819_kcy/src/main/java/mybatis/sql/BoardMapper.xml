@@ -41,7 +41,10 @@
 	</insert>
 
 	<delete id="deleteOne" parameterType="int">
-		DELETE FROM board where num = #{num}
+		DELETE FROM board WHERE num = #{num}
 	</delete>
-
+	
+	<delete id="deleteWriter" parameterType="String">
+		DELETE FROM board WHERE writer = #{writer}
+	</delete>
 </mapper>
