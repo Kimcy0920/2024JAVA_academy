@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <input type="text" name="id" placeholder="ID">
+        <input type="text" name="title" placeholder="Title">
+        <input type="text" name="author" placeholder="author">
+        <button onclick="createPost()">Create</button>
+        <button onclick="readPosts()">Read</button>
+        <button onclick="updatePost()">Update</button>
+        <button onclick="deletePost()">Delete</button>
+    </div>
+    <ul class="print-data"></ul>
+    <script>
+        const apiUrl = 'http://localhost:3000/posts'; // posts 테이블명이라 생각
+        function readPosts() {
+            fetch(apiUrl)
+            .then(response => response.json())
+            .then(data => {
+                const printData = document.querySelector('.print-data');
+                printData.innerHTML = '';
+                data.forEach(post => { // forEach => 람다식
+                    printData.innerHTML += `<li>id: ${post.id} <br>title: ${post.title} <br>author: ${post.author}</li>`;
+                }); // printData += 누적해서 추가
+                console.log(printData); // ul태그 안 li태그에 입력한 모든 정보를 갖고있음
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        function createPost() {
+            const inputId = document.querySelector('input[name=id]').value;
+            const inputTitle = document.querySelector('input[name=title]').value;
+            const inputAuthor = document.querySelector('input[name=author]').value;
+
+            const postParams = { // 자바스크립트 객체 생성
+                // id: document.querySelector('input[name=id]').value;
+                id: inputId,
+                title: inputTitle,
+                author: inputAuthor
+            };
+            console.log(postParams); // {id: '3', title: '연스', author: '홍길동'} 자바
+            console.log(JSON.stringify(postParams)); // {"id":"3","title":"연스","author":"홍길동"} JSON 문자열 형식
+
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                    // title
+                },
+                body: JSON.stringify(postParams)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post created:', data);
+                readPosts();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        // update의 경우 create와 유사한 구조
+        function updatePost() {
+            const inputId = document.querySelector('input[name=id]').value;
+            const inputTitle = document.querySelector('input[name=title]').value;
+            const inputAuthor = document.querySelector('input[name=author]').value;
+
+            const postParams = {
+                id: inputId,
+                title: inputTitle,
+                author: inputAuthor
+            };
+
+            fetch(`${apiUrl}/${inputId}`, { // 멱등성 - 변경했으므로 update눌러도 반응X
+                method: 'PUT', // 수정2: 메소드
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(postParams)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post updated:', data); // 수정3: 출력문 변경
+                readPosts();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+        function deletePost() {
+            const inputId = document.querySelector('input[name=id]').value;
+
+            fetch(`${apiUrl}/${inputId}`, { // http://localhost:3000/posts/2 2번ID 삭제
+                // `${apiUrl}/${inputId}` <-- 멱등성 - 삭제했으므로 delete눌러도 반응X
+                method: 'DELETE'
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Post deleted', data);
+                readPosts();
+            })
+            .catch(error => console.error('Error', error));
+        }
+/*
+        fetch, forEach
+*/
+    </script>
+</body>
+</html>
