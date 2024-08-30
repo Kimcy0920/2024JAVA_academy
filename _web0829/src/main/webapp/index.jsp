@@ -64,10 +64,10 @@ a:hover {
 		ResultSet rs = pstmt.executeQuery();
 
 		while (rs.next()) {
-			String json_object = rs.getString(1);
+			String data = rs.getString(1);
 		%>
 		<tr>
-			<td><%=json_object%></td>
+			<td><%=data%></td>
 		</tr>
 		<%
 		}
