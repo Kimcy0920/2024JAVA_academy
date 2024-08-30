@@ -7,51 +7,33 @@
     Connection conn = null;
     PreparedStatement pstmt = null;
     ResultSet rs = null;
-
-    String action = "";
+	
+    // server page, ex) servlet
+    String action = request.getParameter("action"); // ?action
     String responseJson = "";
 
     try {
         Class.forName("com.mysql.cj.jdbc.Driver");
         conn = DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
 
-        // JSON 데이터 파싱
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = request.getReader().readLine()) != null) {
-            sb.append(line);
-        }
-        System.out.println(sb);
-        JSONObject jsonData = new JSONObject(sb.toString());
-        action = jsonData.getString("action");
-        
         if ("create".equalsIgnoreCase(action)) {
-        	String ename = jsonData.getString("ename");
-            String job = jsonData.getString("job");
-            int mgr = jsonData.getInt("mgr");
-            String hiredate = jsonData.getString("hiredate");
-            double sal = jsonData.getDouble("sal");
-            double comm = jsonData.getDouble("comm");
-            int deptno = jsonData.getInt("deptno");
-
-            String sql = "INSERT INTO emp (ename, job, mgr, hiredate, sal, comm, deptno) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String writer = request.getParameter("writer");
+            String title = request.getParameter("title");
+            String content = request.getParameter("content");
+            String sql = "INSERT INTO board (writer, title, content, regtime, hits) VALUES (?, ?, ?, now(), 0)";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, ename);
-            pstmt.setString(2, job);
-            pstmt.setInt(3, mgr);
-            pstmt.setString(4, hiredate);
-            pstmt.setDouble(5, sal);
-            pstmt.setDouble(6, comm);
-            pstmt.setInt(7, deptno);
+            pstmt.setString(1, writer);
+            pstmt.setString(2, title);
+            pstmt.setString(3, content);
             int rows = pstmt.executeUpdate();
             responseJson = "{\"status\":\"success\",\"rows\":" + rows + "}";
 
         } else if ("read".equalsIgnoreCase(action)) {
             String sql = "SELECT * FROM emp";
-            pstmt = conn.prepareStatement(sql);
+            pstmt = conn.prepareStatement(sql); // sql select문
             rs = pstmt.executeQuery();
 
-            JSONArray jsonArray = new JSONArray();
+            JSONArray jsonArray = new JSONArray(); // 배열에 저장
             while (rs.next()) {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("empno", rs.getInt("empno"));
@@ -60,41 +42,41 @@
                 jsonObject.put("mgr", rs.getInt("mgr"));
                 jsonObject.put("hiredate", rs.getDate("hiredate"));
                 jsonObject.put("sal", rs.getDouble("sal"));
-                jsonObject.put("commn", rs.getDouble("comm"));
+                jsonObject.put("comm", rs.getDouble("comm"));
                 jsonObject.put("deptno", rs.getInt("deptno"));
                 jsonArray.put(jsonObject);
             }
             responseJson = jsonArray.toString();
 
         } else if ("update".equalsIgnoreCase(action)) {
-            int id = jsonData.getInt("id");
-            String name = jsonData.getString("name");
-            String job = jsonData.getString("job");
-            int manager = jsonData.getInt("manager");
-            String hireDate = jsonData.getString("hireDate");
-            double salary = jsonData.getDouble("salary");
-            double commission = jsonData.getDouble("commission");
-            int deptId = jsonData.getInt("deptId");
+            int empno = Integer.parseInt(request.getParameter("empno"));
+            String ename = request.getParameter("ename");
+            String job = request.getParameter("job");
+            int mgr = Integer.parseInt(request.getParameter("mgr"));
+            String hiredate = request.getParameter("hiredate");
+            double sal = Double.parseDouble(request.getParameter("sal"));
+            double comm = Double.parseDouble(request.getParameter("comm"));
+            int deptno = Integer.parseInt(request.getParameter("deptno"));
 
-            String sql = "UPDATE emp SET name=?, job=?, manager=?, hireDate=?, salary=?, commission=?, deptId=? WHERE id=?";
+            String sql = "UPDATE emp SET ename=?, job=?, mgr=?, hiredate=?, sal=?, comm=?, deptno=? WHERE empno=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, name);
+            pstmt.setString(1, ename);
             pstmt.setString(2, job);
-            pstmt.setInt(3, manager);
-            pstmt.setString(4, hireDate);
-            pstmt.setDouble(5, salary);
-            pstmt.setDouble(6, commission);
-            pstmt.setInt(7, deptId);
-            pstmt.setInt(8, id);
+            pstmt.setInt(3, mgr);
+            pstmt.setString(4, hiredate);
+            pstmt.setDouble(5, sal);
+            pstmt.setDouble(6, comm);
+            pstmt.setInt(7, deptno);
+            pstmt.setInt(8, empno);
             int rows = pstmt.executeUpdate();
             responseJson = "{\"status\":\"success\",\"rows\":" + rows + "}";
 
         } else if ("delete".equalsIgnoreCase(action)) {
-            int id = jsonData.getInt("id");
+            int empno = Integer.parseInt(request.getParameter("empno"));
 
-            String sql = "DELETE FROM emp WHERE id=?";
+            String sql = "DELETE FROM emp WHERE empno=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, empno);
             int rows = pstmt.executeUpdate();
             responseJson = "{\"status\":\"success\",\"rows\":" + rows + "}";
         }
