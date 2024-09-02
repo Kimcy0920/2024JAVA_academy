@@ -29,21 +29,19 @@
             responseJson = "{\"status\":\"success\",\"rows\":" + rows + "}";
 
         } else if ("read".equalsIgnoreCase(action)) {
-            String sql = "SELECT * FROM emp";
+            String sql = "SELECT * FROM board";
             pstmt = conn.prepareStatement(sql); // sql select문
             rs = pstmt.executeQuery();
 
             JSONArray jsonArray = new JSONArray(); // 배열에 저장
             while (rs.next()) {
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("empno", rs.getInt("empno"));
-                jsonObject.put("ename", rs.getString("ename"));
-                jsonObject.put("job", rs.getString("job"));
-                jsonObject.put("mgr", rs.getInt("mgr"));
-                jsonObject.put("hiredate", rs.getDate("hiredate"));
-                jsonObject.put("sal", rs.getDouble("sal"));
-                jsonObject.put("comm", rs.getDouble("comm"));
-                jsonObject.put("deptno", rs.getInt("deptno"));
+                jsonObject.put("num", rs.getInt("num"));
+                jsonObject.put("writer", rs.getString("writer"));
+                jsonObject.put("title", rs.getString("title"));
+                jsonObject.put("content", rs.getString("content"));
+                jsonObject.put("regtime", rs.getString("regtime"));
+                jsonObject.put("hits", rs.getInt("hits"));
                 jsonArray.put(jsonObject);
             }
             responseJson = jsonArray.toString();
@@ -72,11 +70,11 @@
             responseJson = "{\"status\":\"success\",\"rows\":" + rows + "}";
 
         } else if ("delete".equalsIgnoreCase(action)) {
-            int empno = Integer.parseInt(request.getParameter("empno"));
+            int num = Integer.parseInt(request.getParameter("num"));
 
-            String sql = "DELETE FROM emp WHERE empno=?";
+            String sql = "DELETE FROM board WHERE num=?";
             pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, empno);
+            pstmt.setInt(1, num);
             int rows = pstmt.executeUpdate();
             responseJson = "{\"status\":\"success\",\"rows\":" + rows + "}";
         }

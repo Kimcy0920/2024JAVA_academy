@@ -7,7 +7,7 @@
 <title></title>
 </head>
 <body>
-	<form action="boardJsonserver.jsp" method="post">
+	<form action="boardJsonserver_form.jsp" method="post">
 	<input type="hidden" name="action" value="create">
 	제목: <input type="text" name="title" required><br>
 	이름: <input type="text" name="writer" required><br>
