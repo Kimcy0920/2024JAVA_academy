@@ -1,0 +1,24 @@
+C:\ -> mkdir _vue
+cd _vue -> npm install -g @vue/cli
+vue create 프로젝트명 -> y, default vue3 enter
+프로젝트 위치에서 npm run serve -> localhost:8080 접속
+
+cmd 새 창으로 실행
+C:\_vue\vue-project\ -> vue add router // nav bar
+프로젝트 위치에서 code . // 해당 프로젝트 vscode로 실행
+
+--------------------------------------------------------------------
+
+* 파일 저장.
+
+vue.config.js파일에 아래 코드 추가
+module.exports = {
+  publicPath: ''
+};
+
+npm run build -> dist폴더 생성됨
+
+git repositories 생성
+
+dist 폴더에서 git 명령어 실행
+setting - pages - 페이지 등록

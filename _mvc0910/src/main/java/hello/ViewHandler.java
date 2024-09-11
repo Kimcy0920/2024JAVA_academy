@@ -1,5 +1,7 @@
 package hello;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,7 +14,7 @@ public class ViewHandler implements CommandHandler {
 	@Override
 	// CommandHandler 인터페이스의 process 메서드를 구현
 	public String process(HttpServletRequest req, HttpServletResponse res) {
-		
+
 		// 기존 com.board.controller의 view 실행 코드를 가져와 일부분 수정함
 		int num = Integer.parseInt(req.getParameter("num"));
 

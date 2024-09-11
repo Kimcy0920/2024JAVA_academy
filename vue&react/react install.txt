@@ -1,0 +1,18 @@
+node -v // * node.js 설치 후 진행
+
+_react // cmd, powershell
+npx create-react-app [폴더이름]
+
+npm start
+-------------------------------------------
+_react 폴더에 1to50 압축해제
+
+1to50 -> 050
+package.json -> script부분에 아래 코드 입력 후 저장
+"react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-scripts": "5.0.1",
+
+npm install -> npm start
+에러 발생 시
+npm upgrade -> npm start

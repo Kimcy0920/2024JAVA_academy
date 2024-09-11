@@ -1,5 +1,7 @@
 package hello;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,8 +14,10 @@ public class InsertHandler implements CommandHandler {
 
 	@Override
 	// CommandHandler 인터페이스의 process 메서드를 구현
-	public String process(HttpServletRequest req, HttpServletResponse res) {
+	public String process(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException {
 		
+		req.setCharacterEncoding("UTF-8");
+		ListHandler listHandler = new ListHandler();
 		// 기존 com.board.controller의 list 실행 코드를 가져와 일부분 수정함
         String writer  = req.getParameter("writer" );
         String title   = req.getParameter("title"  );
@@ -21,8 +25,8 @@ public class InsertHandler implements CommandHandler {
 
         try {
             new BoardService().writeMsg(writer, title, content);
-            
-            return "/WEB-INF/view/list.jsp";
+            String redirect = listHandler.process(req, res);      
+            return redirect;
 
         } catch(Exception e) {
             req.setAttribute("errorMessage", e.getMessage());

@@ -7,13 +7,13 @@
     <meta charset="UTF-8">
     <style>
         table { width:680px; text-align:center; }
-        th    { width:100px; background-color:cyan; }
+        th    { width:100px; background-color:gray; }
         td    { text-align:left; border:1px solid gray; }
     </style>
 </head>
 <body>
 
-<table>
+<table boarder="1">
     <tr>
         <th>제목</th>
         <td>${msg.title}</td>
@@ -41,7 +41,7 @@
 <input type="button" value="수정"
        onclick="location.href='write.do?num=${param.num}'">
 <input type="button" value="삭제"
-       onclick="location.href='delete?num=${param.num}'">
+       onclick="location.href='delete.do?num=${param.num}'">
 
 </body>
 </html>

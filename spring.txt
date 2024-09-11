@@ -1,0 +1,18 @@
+[JDK 다운로드]
+https://download.oracle.com/java/17/archive/jdk-17.0.11_windows-x64_bin.zip
+환경변수 JAVA_HOME 경로 변경
+javac -version으로 버전 확인
+
+[스프링 다운로드]
+https://cdn.spring.io/spring-tools/release/STS4/4.24.0.RELEASE/dist/e4.32/spring-tool-suite-4-4.24.0.RELEASE-e4.32.0-win32.win32.x86_64.self-extracting.jar
+jar파일 _spring 폴더에 압축해제
+cmd 실행 java -jar 탭키 엔터 - 스프링 설치
+
+설치폴더 스프링툴 바로가기 생성 후 실행
+워크스페이스 _sts폴더로 지정
+New - Spring Starter Project -> Java Version 21
+- Next -> Web - Available - Web입력 Spring Web 체크 - Finish
+
+* 포트번호 충돌 시
+프로젝트 - src/main/resources - application.properties에
+server.port=8084 입력 후 저장

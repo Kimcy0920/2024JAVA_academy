@@ -14,8 +14,8 @@
 	type="image/x-icon">
 <script src="https://kit.fontawesome.com/c47106c6a7.js"
 	crossorigin="anonymous"></script>
-<link rel="stylesheet" href="css/style.css">
-<script src="js/ie.js"></script>
+<link rel="stylesheet" href="../css/style.css">
+<script src="/view/js/ie.js"></script>
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"

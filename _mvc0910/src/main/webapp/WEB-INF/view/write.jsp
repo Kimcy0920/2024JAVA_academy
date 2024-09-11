@@ -7,14 +7,14 @@
     <meta charset="UTF-8">
     <style>
         table { width:680px; text-align:center; }
-        th    { width:100px; background-color:cyan; }
+        th    { width:100px; background-color:gray; }
         input[type=text], textarea { width:100%; }
     </style>
 </head>
 <body>
 
 <form method="post" action="${action}">
-    <table>
+    <table border="1">
         <tr>
             <th>제목</th>
             <td><input type="text" name="title"  maxlength="80"

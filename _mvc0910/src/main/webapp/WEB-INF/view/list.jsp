@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <style>
         table     { width:680px; text-align:center; }
-        th        { background-color:cyan; }
+        th        { background-color:gray; }
 
         .num      { width: 80px; }
         .title    { width:230px; }
@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<table>
+<table border="1">
     <tr>
         <th class="num"    >번호    </th>
         <th class="title"  >제목    </th>

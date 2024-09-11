@@ -12,11 +12,7 @@ public class ErrorBackHandler implements CommandHandler {
 	@Override
 	// CommandHandler 인터페이스의 process 메서드를 구현
 	public String process(HttpServletRequest req, HttpServletResponse res) {
-		
-		// 기존 com.board.controller의 errorBack 실행 코드를 가져와 일부분 수정함
-//		req.setAttribute("errorMessage", e.getMessage());
-		
-		// 뷰 페이지로 "/WEB-INF/view/hello.jsp"를 반환
+
 		return "/WEB-INF/view/errorBack.jsp";
 	}
 	/*
