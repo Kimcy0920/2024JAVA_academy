@@ -1,9 +1,13 @@
 package controller;
 
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,21 +52,42 @@ public class RegisterController {
 		return "redirect:/register/step1";
 	}
 
-	@PostMapping("/register/step3") // RegisterRequest 커맨드 객체
-	public String handleStep3(RegisterRequest regReq, BindingResult errors) { // (regReq, errors)프레임워크가 알아서 객체 생성해줌
-		// BindingResult errors = Errors errors
-		// RegisterRequestValidator -> @Override public void validate(Object target(1), Errors errors(2)) {
-		new RegisterRequestValidator().validate(regReq, errors);
+	// 241029
+	@PostMapping("/register/step3")
+	public String handleStep3(@Valid RegisterRequest regReq, BindingResult errors) {
+//		new RegisterRequestValidator().validate(regReq, errors);
 		if (errors.hasErrors())
-			return "register/step2"; // 에러 발생시 step2로 리턴
+			return "register/step2";
 		try {
 			memberRegisterService.regist(regReq);
 			return "register/step3";
 		} catch (DuplicateMemberException ex) {
-//			errors.rejectValue("email", "duplicate"); // label.properties -> duplicate.email=중복된 이메일입니다.
-			errors.reject("notMatchingPassword"); // p.335
+			errors.reject("notMatchingPassword");
 			return "register/step2";
 		}
 	}
+	
+//	@InitBinder
+//	protected void initBinder(WebDataBinder binder) {
+//		binder.setValidator(new RegisterRequestValidator());
+//	}
+	
+//	// 241028
+//	@PostMapping("/register/step3") // RegisterRequest 커맨드 객체
+//	public String handleStep3(RegisterRequest regReq, BindingResult errors) { // (regReq, errors)프레임워크가 알아서 객체 생성해줌
+//		// BindingResult errors = Errors errors
+//		// RegisterRequestValidator -> @Override public void validate(Object target(1), Errors errors(2)) {
+//		new RegisterRequestValidator().validate(regReq, errors);
+//		if (errors.hasErrors())
+//			return "register/step2"; // 에러 발생시 step2로 리턴
+//		try {
+//			memberRegisterService.regist(regReq);
+//			return "register/step3";
+//		} catch (DuplicateMemberException ex) {
+////			errors.rejectValue("email", "duplicate"); // label.properties -> duplicate.email=중복된 이메일입니다.
+//			errors.reject("notMatchingPassword"); // p.335
+//			return "register/step2";
+//		}
+//	}
 
 }
